@@ -1,0 +1,12 @@
+<h1>Mały Bar</h1>
+<p>{{ komunikat }}</p>
+
+<ul>
+{% if not user.is_authenticated %}
+  <li><a href="{% url 'auth_login' %}">Zaloguj się</a></li>
+  <li><a href="{% url 'registration_register' %}">Utwórz konto</a></li>
+{% else %}
+  <li><a href="{% url 'pizza:lista' %}">Lista pizz</a></li>
+  <li><a href="{% url 'auth_logout' %}">Wyloguj się</a></li>
+{% endif %}
+</ul>

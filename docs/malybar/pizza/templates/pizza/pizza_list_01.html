@@ -1,0 +1,18 @@
+<h1>Mały Bar</h1>
+
+<table class="table">
+<tr><th>Lp.</th><th>Nazwa</th><th>Info</th><th>Operacje</th></tr>
+{% for p in pizze %}
+<tr>
+    <td>{{ forloop.counter }}</td>
+    <td>{{ p.nazwa }}</td>
+    <td>{{ p.autor.username }} ({{ p.data }})</td>
+    <td>
+        {% if p.autor.username == user.username %}
+            <a href="#">Edytuj</a> &bull;
+            <a href="#">Usuń</a>
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}
+</table>
