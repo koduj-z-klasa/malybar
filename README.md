@@ -7,8 +7,8 @@ Przykładowa aplikacja sieciowa w Django
 
 # Przygotowanie środowiska wirtualnego:
 
-W katalogu projektu `malybar` należy utworzyć środowisko wirtualne `.pve` 
-i zainstalować w nim wymagane biblioteki  
+W katalogu projektu `malybar` należy utworzyć środowisko wirtualne `.pve`
+i zainstalować w nim wymagane biblioteki
 
     ~$ git clone https://github.com/xinulsw/malybar.git
     ~$ cd malybar
@@ -16,7 +16,7 @@ i zainstalować w nim wymagane biblioteki
     ~$ source .pve/bin/activate
     ~$ pip install -r requirements.txt
 
-Serwer uruchamiamy po aktywowaniu środowiska wirtualnego 
+Serwer uruchamiamy po aktywowaniu środowiska wirtualnego
 (poleceniem: `source .pve/bin/activate`), w katalogu `malybar`:
 
     ~/malybar$ python manage.py runserver
@@ -31,4 +31,4 @@ W bazie są już konta użytkowników (login - hasło):
 
 Sprawdzenia poprawnego działania aplikacji dokonujemy uruchamiając testy:
 
-    ~/linetc/malybar$ python manage.py tests 
+    ~/linetc/malybar$ python manage.py test
