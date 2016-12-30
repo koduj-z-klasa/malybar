@@ -10,8 +10,8 @@ Przykładowa aplikacja sieciowa w Django
 W katalogu projektu `malybar` należy utworzyć środowisko wirtualne `.pve` 
 i zainstalować w nim wymagane biblioteki  
 
-    ~$ git clone https://github.com/xinulsw/linetc.git
-    ~$ cd linetc/malybar
+    ~$ git clone https://github.com/xinulsw/malybar.git
+    ~$ cd malybar
     ~$ virtualenv .pve
     ~$ source .pve/bin/activate
     ~$ pip install -r requirements.txt
@@ -19,7 +19,7 @@ i zainstalować w nim wymagane biblioteki
 Serwer uruchamiamy po aktywowaniu środowiska wirtualnego 
 (poleceniem: `source .pve/bin/activate`), w katalogu `malybar`:
 
-    ~/linetc/malybar$ python manage.py runserver
+    ~/malybar$ python manage.py runserver
 
 W bazie są już konta użytkowników (login - hasło):
 
