@@ -1,0 +1,125 @@
+{% load static %}<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Ciasto + składniki = Pizza{% endblock %}</title>
+
+    <!-- Bootstrap -->
+    <link href="{% static 'pizza/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="{% static 'pizza/css/pizza.css' %}" rel="stylesheet">
+  </head>
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Przełącz nawigację</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'pizza:index' %}">
+            <img src="{% static 'pizza/img/pizza.jpg' %}" class="img-thumbnail logo">
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mały Bar – Pizza <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+              {% if not user.is_authenticated %}
+                <li><a href="{% url 'registration_register' %}">Utwórz konto</a></li>
+              {% else %}
+                <li><a href="{% url 'pizza:dodaj' %}">Dodaj pizzę</a></li>
+                <li><a href="{% url 'pizza:lista' %}">Lista pizz</a></li>
+                <li><a href="{% url 'auth_logout' %}?next=/pizza/">Wyloguj</a></li>
+              {% endif %}
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-right navbar-logout">
+          {% if not user.is_authenticated %}
+            <li><a class="btn btn-success" href="{% url 'auth_login' %}">Zaloguj</a></li>
+          {% else %}
+            <li><a class="btn btn-success" href="{% url 'auth_logout' %}">Wyloguj: {{ user.username }}</a></li>
+          </ul>
+          {% endif %}
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<div class="container">
+
+  <div>
+    <h1 class="pizza-title">Pizza</h1>
+    <p class="lead">= ciasto + składniki</p>
+  </div>
+
+  <div class="row">
+
+    <div class="col-sm-8">
+
+      <noscript><p>!!! Twoja przeglądarka nie obsługuje języka JavaScript! Aby korzystać z wszystkich możliwości serwisu, uaktywnij bsługę JavaScript.</p></noscript>
+
+      <h2>{% block content_title %}{% endblock %}</h2>
+
+        {% block messages %}
+          {% if messages %}
+            <ul class="messagelist">
+              {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endblock messages %}
+
+      {% block content %}{% endblock %}
+
+    </div>
+
+    <div class="col-sm-3 col-sm-offset-1">
+      <div class="sidebar">
+        <div class="well">
+        <h4>Przydatne linki</h4>
+        <ul>
+          <li><a href="https://www.djangoproject.com/">Django – web framework</a></li>
+          <li><a href="http://django.pl/">Polska strona Django</a></li>
+          <li><a href="http://getbootstrap.com/">Bootstrap</a></li>
+          <li><a href="http://www.w3schools.com/bootstrap/">Bootstrap Tutorial
+          </a></li>
+          <li><a href="https://www.python.org/">Python</a></li>
+          <li><a href="http://python101.readthedocs.io/">Materiały Python 101</a></li>
+        </ul>
+        </div>
+      </div> <!--/sidebar-->
+    </div>
+
+  </div> <!--/row -->
+</div> <!--/container -->
+
+<div class="container footer">
+  <footer>
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <div class="well">Django web framework – kurs błyskawiczny!<br>&copy; by Koduj z klasą 2017</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="{% static 'pizza/js/bootstrap.min.js' %}"></script>
+    {% block get_js %}{% endblock %}
+  </body>
+</html>

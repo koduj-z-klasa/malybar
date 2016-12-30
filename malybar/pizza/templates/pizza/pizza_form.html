@@ -1,0 +1,41 @@
+{% extends "pizza/base.html" %}
+{% block title %}Mały Bar – Pizza{% endblock %}
+
+    {% block content_title %}
+        Dodaj pizzę
+    {% endblock %}
+
+    {% block content %}
+    <form action="." method="post" id="pform">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <h3>Składniki:</h3>
+        {{ skladniki.management_form }}
+        {{ skladniki.non_form_errors }}
+        {% for skl in skladniki %}
+        {{ skl.id }}
+            <div class="{{ skladniki.prefix }}">
+                <span>{{ forloop.counter }})&nbsp;</span>       {{ skl.nazwa.errors }}
+                {{ skl.jarski.errors }}
+                {{ skl.nazwa.label_tag }} {{ skl.nazwa }}
+                {{ skl.jarski.label_tag }} {{ skl.jarski }}
+            </div>
+        {% endfor %}
+        <br /><input type="submit" value="Zapisz" class="btn btn-success" />
+    </form>
+    {% endblock %}
+
+{% block get_js %}
+{% load static %}
+<!-- <script type="text/javascript" src="{% static "pizza/js/jquery.formset.js" %}"></script>
+<script type="text/javascript">
+    $(function() {
+        $('#pform div.inline').formset({
+            prefix: 'skladniki',
+            addText: 'Dodaj składnik',
+            deleteText: 'Usuń'
+        });
+    })
+</script> //-->
+{% endblock %}

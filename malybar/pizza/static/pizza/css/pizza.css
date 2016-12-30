@@ -1,0 +1,21 @@
+.navbar-brand { padding-top: 1px; }
+.logo {
+	height: 50px;
+}
+.pizza-title {
+    margin-top: 80px;
+    margin-bottom: 0px;
+    font-size: 40px;
+    font-weight: normal;
+}
+.sidebar {
+    padding: 15px;
+    margin: 0px -15px 15px;
+}
+.navbar-logout {
+	margin: 8px -15px;
+}
+.navbar-logout.nav li a { padding: 6px 12px; margin-right: 15px; }
+.navbar-logout.nav li a:hover { background-color: #449D44; border-color: #398439; }
+ol.lista li { margin-bottom: 10px; }
+.footer { margin-top: 20px; }
