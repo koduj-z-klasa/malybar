@@ -6,9 +6,10 @@ from django.utils.decorators import method_decorator
 from . import models
 from . import forms
 from django.http import HttpResponseRedirect
-from django.template.response import TemplateResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 from django.forms.models import modelformset_factory
+from django.template.response import TemplateResponse
 
 
 def index(request):
@@ -24,7 +25,7 @@ class PizzaCreate(CreateView):
 
     model = models.Pizza
     form_class = forms.PizzaForm
-    success_url = '/pizza/lista'
+    success_url = reverse_lazy('pizza:list')  # '/pizza/lista'
 
     def get(self, request, *args, **kargs):
         self.object = None
@@ -71,7 +72,7 @@ class PizzaUpdate(UpdateView):
     form_class = forms.PizzaForm
     context_object_name = 'pizze'
     template_name = 'pizza/pizza_form.html'
-    success_url = '/pizza/lista'
+    success_url = reverse_lazy('pizza:list')  # '/pizza/lista'
 
     def get_context_data(self, **kwargs):
         context = super(PizzaUpdate, self).get_context_data(**kwargs)
@@ -124,7 +125,7 @@ class PizzaUpdate(UpdateView):
 class PizzaDelete(DeleteView):
     model = models.Pizza
     template_name = 'pizza/pizza_usun.html'
-    success_url = '/lista'
+    success_url = reverse_lazy('pizza:list')  # '/pizza/lista'
 
     def get_context_data(self, **kwargs):
         context = super(PizzaDelete, self).get_context_data(**kwargs)

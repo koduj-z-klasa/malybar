@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 from django.conf.urls import url
-from . import views
+from . import views  # import widoków aplikacji
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
 from . import models

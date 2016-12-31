@@ -7,9 +7,9 @@ from django.db.models.fields import TextField
 
 class SkladnikInline(admin.TabularInline):
     model = models.Skladnik
-    max_num = 6
-    extra = 3
     fields = ['nazwa', 'jarski']
+    extra = 3
+    max_num = 6
 
 
 @admin.register(models.Pizza)
@@ -26,6 +26,3 @@ class PizzaAdmin(admin.ModelAdmin):
         if not change:
             obj.autor = request.user
         obj.save()
-
-# admin.site.register(Pizza)
-# admin.site.register(Skladnik)
