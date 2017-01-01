@@ -101,7 +101,6 @@ class PizzaUpdate(UpdateView):
 @method_decorator(login_required, 'dispatch')
 class PizzaDelete(DeleteView):
     model = models.Pizza
-    template_name = 'pizza/pizza_usun.html'
     success_url = reverse_lazy('pizza:list')  # '/pizza/lista'
 
     def get_context_data(self, **kwargs):

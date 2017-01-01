@@ -2,12 +2,12 @@
 {% block title %}Mały Bar – Pizza{% endblock %}
 
 {% block content_title %}
-    Usuń pizzę
+    Usuwanie pizzy
 {% endblock %}
 
 {% block content %}
 
-    <form method="POST">
+    <form action="." method="post">
         {% csrf_token %}
         <p>Czy na pewno chcesz usunąć pizzę:<br />"{{ object }}"?</p>
         {{ skladniki.as_p }}
