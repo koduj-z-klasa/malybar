@@ -36,16 +36,15 @@ class PizzaCreate(CreateView):
         return context
 
     def form_valid(self, form):
+        form.instance.autor = self.request.user
         context = self.get_context_data()
         skladniki = context['skladniki']
-        form.instance.autor = self.request.user
         if form.is_valid() and skladniki.is_valid():
             self.object = form.save()
             skladniki.instance = self.object
             skladniki.save()
             return super(PizzaCreate, self).form_valid(form)
-        else:
-            return self.form_invalid(form, skladniki)
+        return self.form_invalid(form, skladniki)
 
     def form_invalid(self, form, skladniki):
         errors = skladniki.non_form_errors()
@@ -60,44 +59,30 @@ class PizzaCreate(CreateView):
 @method_decorator(login_required, 'dispatch')
 class PizzaUpdate(UpdateView):
     """Widok aktualizuacji"""
+
     model = models.Pizza
     form_class = forms.PizzaForm
-    context_object_name = 'pizze'
-    template_name = 'pizza/pizza_form.html'
-    success_url = reverse_lazy('pizza:list')  # '/pizza/lista'
+    success_url = reverse_lazy('pizza:lista')  # '/pizza/lista'
 
     def get_context_data(self, **kwargs):
         context = super(PizzaUpdate, self).get_context_data(**kwargs)
         if self.request.POST:
-            context['pizze'] = forms.PizzaForm(
-                self.request.POST,
-                instance=self.object)
             context['skladniki'] = forms.SkladnikiFormSet(
                 self.request.POST,
                 instance=self.object)
         else:
-            context['pizza'] = forms.PizzaForm(instance=self.object)
             context['skladniki'] = forms.SkladnikiFormSet(instance=self.object)
         return context
 
-    def post(self, request, *args, **kwargs):
-        self.object = None
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        skladniki = forms.SkladnikiFormSet(self.request.POST)
+    def form_valid(self, form):
+        form.instance.autor = self.request.user
+        context = self.get_context_data()
+        skladniki = context['skladniki']
         if form.is_valid() and skladniki.is_valid():
-            return self.form_valid(form, skladniki)
-        else:
-            return self.form_invalid(form, skladniki)
-
-    def form_valid(self, form, skladniki):
-        pizza = form.save(commit=False)
-        pizza.autor = self.request.user
-        pizza.save()
-        self.object = pizza
-        skladniki.instance = self.object
-        skladniki.save()
-        return HttpResponseRedirect(self.get_success_url())
+            self.object = form.save()
+            skladniki.save()
+            return HttpResponseRedirect(self.get_success_url())
+        return self.form_invalid(form, skladniki)
 
     def form_invalid(self, form, skladniki):
         errors = skladniki.non_form_errors()
@@ -107,10 +92,6 @@ class PizzaUpdate(UpdateView):
         return self.render_to_response(
             self.get_context_data(form=form, skladniki=skladniki)
         )
-
-        def get_object(self, queryset=None):
-            pizza = models.Pizza.objects.get(id=self.kwargs['pk'])
-            return pizza
 
 
 @method_decorator(login_required, 'dispatch')
