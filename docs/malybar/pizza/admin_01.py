@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from .models import Pizza, Skladnik
+from . import models
 
 # rejestrujemy modele w panelu administracyjnym
-admin.site.register(Pizza)
-admin.site.register(Skladnik)
+admin.site.register(models.Pizza)
+admin.site.register(models.Skladnik)

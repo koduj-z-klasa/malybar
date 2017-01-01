@@ -29,7 +29,7 @@ class Pizza(models.Model):
 
 
 class Skladnik(models.Model):
-    pizza = models.ForeignKey('Pizza', related_name='skladniki')
+    pizza = models.ForeignKey(Pizza, related_name='skladniki')
     nazwa = models.CharField(verbose_name=u"składnik", max_length=30)
     jarski = models.BooleanField(
         default=False,

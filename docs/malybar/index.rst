@@ -37,21 +37,21 @@ zawierającego wybraną wersję Django. W konsoli wydajemy polecenia:
 
 .. code-block:: bash
 
-		~$ virtualenv dj_10_4
-		~$ cd dj_10_4
-		~$ source ./bin/activate
-		~$ pip install Django==1.10.4
-		~$ pip install django-registration
+		~$ mkdir Django; cd Django
+		~/Django$ virtualenv .pve
+		~/Django$ source .pve/bin/activate
+		~/Django$ pip install Django==1.10.4 django-registration
 
-Pierwsze polecenie tworzy katalog zawierający najważniejsze komponenty Pythona.
-Nazwa :file:`dj_10_4` jest umowna, w założeniu ma być skrótem wskazującym wykorzystaną
-wersję Django. Aby skorzystać z przygotowanego środowiska, należy
-go zawsze na początku aktywować, wydając w utworzonym katalogu polecenie ``source ./bin/activate``.
+Na początku tworzymy katalog do przechowywania projektu i wchodzimy do niego.
+Katalog nie jest niezbędny, jednak ułatwi utrzymanie porządku na dysku.
+Kolejne polecenie ``virtualenv .pve`` tworzy katalog o umownej nazwie :file:`.pve`.
+Zawiera on najważniejsze komponenty Pythona. Aby skorzystać z przygotowanego środowiska,
+należy go zawsze na początku aktywować za pomocą polecenia ``source .pve/bin/activate``.
 Opuszczenie środowiska umożliwia komenda ``deactivate``.
 
-Polecenia ``pip install ...`` instalują wskazaną wersję Django oraz dodatkową aplikację
+Polecenie ``pip install ...`` instaluje wskazaną wersję Django oraz dodatkową aplikację
 ułatwiającą zarządzanie użytkownikami. Tak zainstalowane moduły będą dostępne
-tylko w aktywowanym środowisku.
+tylko w środowisku wirtualnym.
 
 Ćwiczenie
 ---------
@@ -60,21 +60,21 @@ Zgodnie z powyższym opisem przygotuj samodzielnie wirtualne środowisko do prac
 
 .. tip::
 
-	Projektując aplikację będziemy często korzystać z poleceń wydawanych w katalogu
-	:file:`dj_10_4` w terminalu. Nie zamykaj więc okna terminala.
+	Projektując aplikację będziemy często korzystać z linii poleceń.
+	Nie zamykaj więc okna terminala.
 
 Projekt
 ========
 
-Otwórz terminal, przejdź do katalogu z utworzonym wcześniej wirtualnym środowiskiem
-:file:`dj_10_4` i aktywuj go. Utworzymy teraz projekt i uruchomimy serwer deweloperski.
+Upewnij się, że utworzone w poprzednim kroku wirtualne środowisko jest aktywne.
+Utworzymy teraz projekt i uruchomimy serwer deweloperski.
 Wydajemy polecenia:
 
 .. code-block:: bash
 
-    ~/dj_10_4$ django-admin stratproject malybar
-    ~/dj_10_4$ cd malybar
-    ~/dj_10_4/malybar$ python manage.py runserver
+    ~/Django$ django-admin stratproject malybar
+    ~/Django$ cd malybar
+    ~/Django/malybar$ python manage.py runserver
 
 Tyle wystarczy, żeby utworzyć szkielet serwisu i uruchomić serwer deweloperski,
 który możemy wywołać wpisując w przeglądarce adres: ``127.0.0.1:8000``.
@@ -87,8 +87,8 @@ Poznajmy strukturę plików naszego projektu. W terminalu wydajemy jedno z polec
 
 .. code-block:: bash
 
-  ~/dj_10_4/malybar$ tree
-	~/dj_10_4/malybar$ ls -R
+  ~/Django/malybar$ tree
+	~/Django/malybar$ ls -R
 
 
 .. figure:: img/django03.jpg
@@ -117,10 +117,10 @@ Utworzymy teraz naszą aplikację `pizza` i zobaczymy strukturę plików:
 
 .. code-block:: bash
 
-	~/dj_10_4/malybar$ python manage.py startapp pizza
-	~/dj_10_4/malybar$ tree pizza
+	~/Django/malybar$ python manage.py startapp pizza
+	~/Django/malybar$ tree pizza
 	lub:
-	~/dj_10_4/malybar$ ls -R pizza
+	~/Django/malybar$ ls -R pizza
 
 **Katalog aplikacji** :file:`malybar/pizza` zawiera:
 
@@ -160,8 +160,8 @@ dodamy konfigurację aplikacji `pizza`, na końcu zainstalowanej wcześniej `dja
 .. highlight:: python
 .. literalinclude:: malybar/settings_01.py
     :linenos:
-    :lineno-start: 107
-    :lines: 107-109
+    :lineno-start: 108
+    :lines: 108-110
 
 
 **Konfiguracja adresów URL projektu** zawarta jest w pliku :file:`malybar/urls.py`. Każda aplikacja definiuje
@@ -339,10 +339,14 @@ Tak więc między modelami `Pizza` i `Skladnik` istnieje relacja jeden-do-wielu.
 
 Po dokonaniu zmian w bazie tworzymy tzw. *migrację*, w terminalu wydajemy polecenia:
 
+.. raw:: html
+
+    <div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
 .. code-block:: bash
 
-  ~/dj_10_4/malybar$ python manage.py make migrations pizza
-  ~/dj_10_4/malybar$ python manage.py migrate
+  ~/Django/malybar$ python manage.py make migrations pizza
+  ~/Django/malybar$ python manage.py migrate
 
 **Migracja** – tworzona przez pierwsze polecenie, to informacje o zmianie w bazy danych zapisywana
 przez Django w języku SQL w katalogu :file:`pizza/migrations`.
@@ -391,11 +395,15 @@ go automatycznie.
 
 .. code-block:: bash
 
-  ~/dj_10_4/malybar$ python manage.py createsuperuser
+  ~/Django/malybar$ python manage.py createsuperuser
 
 Django zapyta o nazwę, e-mail i hasło. Podajemy: `admin`, `""` (pomijamy), `q1w2e3r4`.
 
 Aplikacja w panelu administratora: uzupełniamy plik :file:`pizza/admin.py`:
+
+.. raw:: html
+
+    <div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
 
 .. highlight:: python
 .. literalinclude:: pizza/admin_01.py
@@ -410,7 +418,7 @@ Zarządzanie danymi
 ------------------
 
 1. Uruchom serwer i wywołaj w przeglądarce adres: ``127.0.0.1:8000/admin``.
-2. Zaloguj się jako administrator, dodaj dwie pizze i przynajmniej po jednym składniku do każdej.
+2. Zaloguj się jako administrator, dodaj pizze i przynajmniej jeden składnik.
 3. Utwórz konto dla użytkownika "uczen" z hasłem "q1w2e3r4". Przydziel mu prawa do dodawania, modyfikowania i usuwania pizz i składników. Uwaga: nie zapomnij zaznaczyć opcji "W zespole"!
 4. Zaloguj się na konto "uczen" i dodaj jeszcze jedną pizzę z co najmniej jednym składnikiem.
 
@@ -420,8 +428,53 @@ Zarządzanie danymi
 	między klientem a serwerem w aplikacjach sieciowych wykorzystujących protokół http.
 	Serwer testowy wyświetla pełen zapis sesji w oknie terminala.
 
-	[zrzut]
+Lepszy panel
+------------
 
+W podstawowej konfiguracji modele `Pizza` i `Skladnik` rejestrowane i obsługiwane są osobno.
+Z logicznego i praktycznego punktu widzenia dobrze byłoby, gdyby pizza i jej składniki stanowiły
+całość, również podczas dodawania. W tym celu zmienimy treść pliku :file:`pizza/admin.py` na:
+
+.. raw:: html
+
+    <div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: python
+.. literalinclude:: pizza/admin_02.py
+    :linenos:
+    :lineno-start: 1
+    :lines: 1-
+
+
+Formularze generowane automatycznie w panelu administracyjnym obsługiwane są
+przez klasę `ModelAdmin`. Dostosujemy ją do naszych potrzeb.
+Na początku używamy klasy `TabularInline` pozwalającej edytować kilka modeli na jednej stronie.
+Nam chodzi o składniki, dlatego tworzymy klasę `SkladnikiInline` i ustawiamy
+odpowiednie opcje:
+
+- ``model`` – nazwa modelu, dla którego modyfikujemy formularz;
+- ``fields`` – lista pól, dla których mają być generowane formularze;
+- ``extra`` – ilość pustych formularzy umożliwiających wprowadzanie danych;
+- ``max_num`` – maksymalna ilość obiektów możliwych do dodania za jednym razem.
+
+W klasie `PizzaAdmin` projektujemy wygląd całego formularza dodawania pizz.
+Używamy następujących opcji:
+
+- ``exclude`` – lista pól wykluczonych z formularza;
+- ``inlines`` – nazwa klasy definiującej sposób wyświetlania formularza dla innych modeli;
+- ``search_fields`` – lista pól, które będą przeglądane podczas wyszukiwania obiektów;
+- ``list_per_page`` – maksymalna ilość obiektów pokazywanych na stronie;
+- ``formfield_overrides`` – słownik, w którym kluczami są klasy pól formularza; służy modyfikacji ich wyświetlania, w naszym przypadku ustalamy tu właściwości pola tekstowego.
+
+Utworzenie swojej klasy administracyjnej pozwala również na modyfikację zachowań
+panelu, np. zapisywania danych. Metoda ``save_model`` pozwala nam przypisać
+zalogowanego użytkownika jako autora dodawanego obiektu. Dzięki temu użytkownik
+nie musi wybierać się z listy.
+
+Do rejestrowania klas modyfikujących domyślną klasę ``ModelAdmin`` używamy dekoratora
+w postaci ``@admin.register(models.Pizza)``.
+
+[zrzut panelu]
 
 Użytkownicy
 ===========
@@ -576,7 +629,8 @@ Utworzymy więc widok prezentujący listę pizz.
     :lineno-start: 3
     :lines: 3-5
 
-Następnie przyporządkowujemy adres ``lista/`` o nazwie ``lista`` widokowi `ListView`, dodając kod:
+Następnie przyporządkujemy adres ``lista/`` o nazwie ``lista`` widokowi `ListView`.
+Dodajemy kod:
 
 .. raw:: html
 
@@ -589,12 +643,11 @@ Następnie przyporządkowujemy adres ``lista/`` o nazwie ``lista`` widokowi `Lis
     :lines: 7-14
     :emphasize-lines: 3-7
 
-Widoki generyczne (ang. *generic views*) to udostępniane przez Django widoki służące przygotowywaniu typowych
-stron WWW. `ListView` – jak wskazuje nazwa – tworzy stronę z listą obiektów. Argumenty widoku:
+Widoki generyczne (ang. *generic views*), udostępniane przez Django, służą przygotowywaniu typowych
+stron WWW. `ListView` – jak wskazuje nazwa – tworzy stronę z listą obiektów. Najważniejszym
+argumentem widoku jest ``model``, czyli nazwa modelu obiektów, które mają być wyświetlane.
 
- - ``model`` – wskazuje model obiektów, które mają być wyświetlane;
- - ``context_object_name`` – określa nazwę, pod którą lista obiektów będzie dostępna w szablonie (domyślnie ``objects``);
- - ``paginate_by`` – określa maksymalną liczbę obiektów wyświetlanych na stronie.
+Lista obiektów będzie dostępna w szablonie w zmiennej o domyślnej nazwie ``object_list``.
 
 
 .. note::
@@ -606,7 +659,7 @@ stron WWW. `ListView` – jak wskazuje nazwa – tworzy stronę z listą obiekt�
 Jeżeli chcemy, aby jakiś adres dostępny był tylko dla zalogowanych użytkowników,
 wywołanie widoku umieszczamy w funkcji ``login_required()``.
 
-Widok `ListaView` wymaga szablonu o schematycznej nazwie `nazwa_modelu_list.html`.
+**Szablon dla widoku** generycznego ma schematyczną nazwę, w tym wypadku `nazwa_modelu_list.html`.
 Tworzymy więc plik :file:`templates/pizza/pizza_list.html` o zawartości:
 
 .. raw:: html
@@ -619,15 +672,15 @@ Tworzymy więc plik :file:`templates/pizza/pizza_list.html` o zawartości:
     :lineno-start: 1
     :lines: 1-
 
-Konstrukcję ``for p in pizze`` należy rozumieć następująco:
-`dla każdego obiektu pobranego z listy pizze do zmiennej p wykonaj:`.
+Konstrukcję ``for p in object_list`` należy rozumieć następująco:
+`dla każdego obiektu pobranego z listy object_list do zmiennej p wykonaj:`.
 W pętli wyświetlamy kolejne zmienne: numer iteracji (``forloop.counter``),
 nazwę, autora i datę dodania pizzy. Jeżeli zalogowany użytkownik dodał daną pizzę,
 wyświetlamy odnośniki umożliwiające edycję i usuwanie obiektów.
 
 .. attention::
 
-	Zapamiętaj: tagów ``{% for zmienna in lista %} ... {% endfor %}`` używamy w szablonach,
+	**Zapamiętaj**: tagów ``{% for zmienna in lista %} ... {% endfor %}`` używamy w szablonach,
 	jeżeli potrzebujemy pętli.
 
 
@@ -637,7 +690,7 @@ Na koniec dodaj do szablonu :file:`index.html` odnośnik do listy. Użyj kodu:
 
     {% url 'pizza:lista' %}
 
-Zwróć uwagę, że nazwa URL-a poprzedzona została nazwą przestrzeni nazw, którą zdefiniowaliśmy
+Zwróć uwagę, że **nazwa URL-a poprzedzona została nazwą przestrzeni nazw**, którą zdefiniowaliśmy
 w parametrze ``namespace`` podczas włączania listy adresów naszej aplikacji do listy projektu.
 
 [zrzut]
@@ -658,16 +711,93 @@ Na początku utworzymy nowy plik :file:`pizza/forms.py`, z następującą zawart
     :lineno-start: 1
     :lines: 1-
 
-Pliki o nazwie :file:`forms.py` służą do definiowania formularzy. Klasa `PizzaForm`
-pozwala dostosować cechy formularza, który posłuży do dodawania i edytowania pizz.
-W podklasie `Meta` definiujemy:
+**Definicje formularzy** umieszczamy w plikach o nazwie :file:`forms.py`.
+Co prawda Django potrafi automatycznie tworzyć formularze na podstawie modeli,
+ale wymagają one dostosowania. Dlatego tworzymy klasę `PizzaForm`, w której
+definiujemy formularz do dodawania i edytowania pizz. Właściwe opcje umieszczamy
+w podklasie `Meta`:
 
 	- ``model`` – model, dla którego dostosowujemy formularz;
-	- ``fields`` – tupla zawierająca listę pól modelu, które znajdą się w formularzu;
 	- ``exclude`` – tupla z polami, które wykluczamy z formularza;
 	- ``widgets`` – opcjonalny słownik, w którym ustalamy właściwości widżetów HTML.
 
-Jeżeli tworzymy formularz w na podstawie modelu, Django potrafi wygenerować widżety HTML
-odpowiadających typom pól. Np. pola ``CharField`` reprezentowane są przez tagi ``<input>``,
-a pola ``TextField`` przez ``<textarea>``. W powyższym przykładzie określiliśmy,
-że pole opis będzie reprezentowane przez ... [todo]
+Django automatycznie generuje widżety HTML odpowiadających typom pól modelu.
+Np. pola ``CharField`` reprezentowane są przez tagi ``<input>``, a pola ``TextField`` przez ``<textarea>``.
+Możemy zmienić domyślne ustawienia. W powyższym przykładzie określiliśmy
+rozmiar pola tekstowego na 2 wiersze i 80 kolumn.
+
+**Zestaw (pod)formularzy** – wyświetlany razem z formularzem nadrzędnym,
+definiowany jest jako tzw. tzw. `formset` przy użyciu funkcji ``inlineformset_factory()``:
+
+- ``parent_model`` – model nadrzędny dla składników, czyli `Pizza`;
+- ``model`` – model, dla którego definiujemy zestaw formularzy;
+- ``max_num``, ``min_num`` – maksymalna i minimalna ilość obiektów, które można dodać;
+- ``validate_max``, ``validate_min`` – podczas walidacji sprawdzana będzie minimalna i maksymalna ilość obiektów;
+- ``extra`` – ilość początkowych formularzy do dodawania obiektów;
+- ``fields`` – lista pól, dla których wygenerowane zostaną widżety.
+
+Klasę `SkladnikiFormSet` wykorzystamy po to, aby można było dodawać dane pizzy
+i składników w obrębie jednej strony, podobnie jak w panelu administracyjnym.
+
+
+.. attention::
+
+	Definiowanie formularzy używanych w panelu administracyjnym,
+	czy na stronach, w tym formularzy `inline`, wymaga określania podobnych
+	lub identycznych opcji, np. ``model``, ``fields``, ``extra`` itd.
+
+
+**CreateView** – to kolejny widok generyczny, który posłuży zgodnie z nazwą
+do dodawania danych. Użyjemy go w pliku :file:`pizza/views.py`. Na początku
+dodajemy, jak zwykle, importy:
+
+
+.. raw:: html
+
+	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: html
+.. literalinclude:: pizza/views_02.py
+    :linenos:
+    :lineno-start: 4
+    :lines: 4-10
+
+Następnie na końcu pliku :file:`pizza/views.py` umieszczamy kod:
+
+.. raw:: html
+
+	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: html
+.. literalinclude:: pizza/views_02.py
+    :linenos:
+    :lineno-start: 19
+    :lines: 19-
+
+Widok ``PizzaCreate`` to klasa dziedzicząca i dostosowująca właściwości i metody
+klasy rodzica, czyli `CreateView`. Właściwości:
+
+- ``model`` – pozwala okreslić model, dla którego tworzymy widok;
+- ``form_class`` – klasa formularza do dodawania obiektu, którą zdefiniowaliśmy w :file:`forms.py`;
+- ``success_url`` – adres URL, pod który zostaniemy przekierowani po poprawnym obsłużeniu formularza;
+  aby nie wstawiać adresu literalnie, używamy funkcji ``reverse_lazy()``.
+
+.. note::
+
+	**GET i POST** – to dwa postawowe typy żądań zdefiniowane w protokole `HTTP <https://pl.wikipedia.org/wiki/Hypertext_Transfer_Protocol>`_:
+
+	1. `GET` – to żądanie klienta (przeglądarki), które dotyczy zazwyczaj pobrania zasobu z serwera bez zmieniania danych, innymi słowy są to operacje odczytu;
+	2. `POST` – to żądania klinta wysyłające dane na serwer, aby zmienić dane po jego stronie: utworzyć nowe, zaktualizować lub usunąć.
+
+Zadaniem widoku jest wygenerowanie pustego formularza, kiedy użytkownik wyświetla
+go po raz pierwszy (żądanie typu GET), później sprawdzenie przesłanych
+danych (żądanie typu POST) i ich zapisanie w bazie. Ponieważ chcemy dodawać
+pizze (obiekt nadrzędny) i składniki (obiekty zależne) razem, musimy
+widok dostosować do obsługi zestawu formularzy (ang. *formset*) składników.
+
+**Kontekst widoku** – zawiera słownik z danymi, metoda ``get_context_data()`` domyślnie
+dopisuje do niego formularz główny dla pizzy. My wykorzystujemy ją, aby dodać
+*formset* dla składników. W zależności od typu żądania
+tworzymy pusty (`GET`) lub wypełniony przesłanymi danymi zestaw (`POST`).
+
+[todo]
