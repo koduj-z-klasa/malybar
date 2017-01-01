@@ -52,10 +52,6 @@ class PizzaCreate(CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form, skladniki):
-        errors = skladniki.non_form_errors()
-        if skladniki.total_form_count() == 0:
-            skladniki = forms.SkladnikiFormSet()
-            skladniki._non_form_errors = errors
         return self.render_to_response(
             self.get_context_data(form=form, skladniki=skladniki)
         )
@@ -97,10 +93,6 @@ class PizzaUpdate(UpdateView):
         return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form, skladniki):
-        errors = skladniki.non_form_errors()
-        if skladniki.total_form_count() == 0:
-            skladniki = forms.SkladnikiFormSet()
-            skladniki._non_form_errors = errors
         return self.render_to_response(
             self.get_context_data(form=form, skladniki=skladniki)
         )
