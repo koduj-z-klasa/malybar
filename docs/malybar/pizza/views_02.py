@@ -32,16 +32,21 @@ class PizzaCreate(CreateView):
             context['skladniki'] = forms.SkladnikiFormSet()
         return context
 
-    def form_valid(self, form):
-        form.instance.autor = self.request.user
-        context = self.get_context_data()
-        skladniki = context['skladniki']
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        form = self.get_form()
+        skladniki = forms.SkladnikiFormSet(self.request.POST)
         if form.is_valid() and skladniki.is_valid():
-            self.object = form.save()
-            skladniki.instance = self.object
-            skladniki.save()
-            return HttpResponseRedirect(self.get_success_url())
-        return self.form_invalid(form, skladniki)
+            return self.form_valid(form, skladniki)
+        else:
+            return self.form_invalid(form, skladniki)
+
+    def form_valid(self, form, skladniki):
+        form.instance.autor = self.request.user
+        self.object = form.save()
+        skladniki.instance = self.object
+        skladniki.save()
+        return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form, skladniki):
         errors = skladniki.non_form_errors()

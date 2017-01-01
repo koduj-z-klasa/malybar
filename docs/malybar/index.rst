@@ -800,4 +800,4 @@ dopisuje do niego formularz główny dla pizzy. My wykorzystujemy ją, aby doda�
 *formset* dla składników. W zależności od typu żądania
 tworzymy pusty (`GET`) lub wypełniony przesłanymi danymi zestaw (`POST`).
 
-[todo]
+**Walidacja danych** – to sprawdzanie poprawności
