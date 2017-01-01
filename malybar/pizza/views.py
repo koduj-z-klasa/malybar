@@ -25,31 +25,27 @@ class PizzaCreate(CreateView):
 
     model = models.Pizza
     form_class = forms.PizzaForm
-    success_url = reverse_lazy('pizza:list')  # '/pizza/lista'
+    success_url = reverse_lazy('pizza:lista')  # '/pizza/lista'
 
     def get_context_data(self, **kwargs):
         context = super(PizzaCreate, self).get_context_data(**kwargs)
-        context['skladniki'] = forms.SkladnikiFormSet()
+        if self.request.POST:
+            context['skladniki'] = forms.SkladnikiFormSet(self.request.POST)
+        else:
+            context['skladniki'] = forms.SkladnikiFormSet()
         return context
 
-    def post(self, request, *args, **kwargs):
-        self.object = None
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        skladniki = forms.SkladnikiFormSet(self.request.POST)
+    def form_valid(self, form):
+        context = self.get_context_data()
+        skladniki = context['skladniki']
+        form.instance.autor = self.request.user
         if form.is_valid() and skladniki.is_valid():
-            return self.form_valid(form, skladniki)
+            self.object = form.save()
+            skladniki.instance = self.object
+            skladniki.save()
+            return super(PizzaCreate, self).form_valid(form)
         else:
             return self.form_invalid(form, skladniki)
-
-    def form_valid(self, form, skladniki):
-        pizza = form.save(commit=False)
-        pizza.autor = self.request.user
-        pizza.save()
-        self.object = pizza
-        skladniki.instance = self.object
-        skladniki.save()
-        return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form, skladniki):
         errors = skladniki.non_form_errors()
