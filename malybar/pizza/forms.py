@@ -24,13 +24,3 @@ SkladnikiFormSet = inlineformset_factory(
     can_delete=True,
     fields=('nazwa', 'jarski')
 )
-
-
-class PizzaUpdateForm(ModelForm):
-
-    class Meta:
-        model = models.Pizza
-        fields = ('nazwa', 'opis', 'rozmiar', 'cena')
-        exclude = ('data', 'autor')
-        widgets = {'opis': Textarea(attrs={'rows': 2, 'cols': 80})}
-
