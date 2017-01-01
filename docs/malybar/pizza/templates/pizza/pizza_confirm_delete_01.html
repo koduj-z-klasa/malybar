@@ -1,0 +1,7 @@
+<h1>Usuwanie pizzy</h1>
+<form action="." method="post">
+    {% csrf_token %}
+    <p>Czy na pewno chcesz usunąć pizzę:<br />"{{ object }}"?</p>
+    {{ skladniki.as_p }}
+    <button type="submit">Usuń</button>
+</form>

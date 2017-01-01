@@ -640,8 +640,8 @@ Dodajemy kod:
 .. literalinclude:: pizza/urls_02.py
     :linenos:
     :lineno-start: 7
-    :lines: 7-14
-    :emphasize-lines: 3-7
+    :lines: 7-11
+    :emphasize-lines: 3-4
 
 Widoki generyczne (ang. *generic views*), udostępniane przez Django, służą przygotowywaniu typowych
 stron WWW. `ListView` – jak wskazuje nazwa – tworzy stronę z listą obiektów. Najważniejszym
@@ -727,7 +727,7 @@ Możemy zmienić domyślne ustawienia. W powyższym przykładzie określiliśmy
 rozmiar pola tekstowego na 2 wiersze i 80 kolumn.
 
 **Zestaw (pod)formularzy** – wyświetlany razem z formularzem nadrzędnym,
-definiowany jest jako tzw. tzw. `formset` przy użyciu funkcji ``inlineformset_factory()``:
+definiowany jest jako tzw. `formset` przy użyciu funkcji ``inlineformset_factory()``:
 
 - ``parent_model`` – model nadrzędny dla składników, czyli `Pizza`;
 - ``model`` – model, dla którego definiujemy zestaw formularzy;
@@ -745,6 +745,22 @@ i składników w obrębie jednej strony, podobnie jak w panelu administracyjnym.
 	Definiowanie formularzy używanych w panelu administracyjnym,
 	czy na stronach, w tym formularzy `inline`, wymaga określania podobnych
 	lub identycznych opcji, np. ``model``, ``fields``, ``extra`` itd.
+
+	Jeżeli określimy właściwość ``fields``, nie musimy podawać ``extra``.
+	Działa to również w drugą stronę.
+
+
+**Dodanie adresu** – w pliku :file:`pizza/urls.py` tworzymy adres ``/dodaj``:
+
+.. raw:: html
+
+	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: html
+.. literalinclude:: pizza/urls_0345.py
+    :linenos:
+    :lineno-start: 12
+    :lines: 12
 
 
 **CreateView** – to kolejny widok generyczny, który posłuży zgodnie z nazwą
@@ -800,4 +816,99 @@ dopisuje do niego formularz główny dla pizzy. My wykorzystujemy ją, aby doda�
 *formset* dla składników. W zależności od typu żądania
 tworzymy pusty (`GET`) lub wypełniony przesłanymi danymi zestaw (`POST`).
 
-**Walidacja danych** – to sprawdzanie poprawności
+**Walidacja danych** – to sprawdzanie poprawności przesłanych danych.
+Przeprowadzamy ją w metodzie ``post()``, którą nadpisujemy.
+Na podstawie przesłanych danych tworzymy:
+
+- ``form = self.get_form()`` – obiekt formularza głównego;
+- ``skladniki = forms.SkladnikiFormSet(self.request.POST)`` – *formset*
+  składników.
+
+Metoda ``is_valid()`` sprawdza poprawność danych, np. to, czy wartości
+pól wymaganych zostały podane.
+
+**Zapisanie danych** ma miejsce w metodzie ``form_valid()`` wywoływanej po
+pozytywnej walidacji. W metodzie uzupełniamy pole ``autor``,
+które wykluczyliśmy z formularza głównego.
+Po zapisaniu przekierwoujemy użytkownika na zdefinowany wcześniej adres.
+
+Jeżeli walidacja nie powiedzie się, wywoływana jest metoda ``fomr_invalid()``.
+Nadpisujemy ją po to, aby zwrócić błędy nie tylko formularza głównego,
+ale również formularzy zależnych.
+
+**Szablon dodawania** – dla widoku typu `CreateView` ma nazwę tworzoną wg schematu
+:file:`nazwa_modelu_form.html`. Tworzymy więc plik :file:`pizza/templates/pizza/pizza_form.html`:
+
+.. raw:: html
+
+	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: html
+.. literalinclude:: pizza/templates/pizza/pizza_form_01.html
+    :linenos:
+    :lineno-start: 1
+
+Wygenerowanie HTML-owej wersji formularza głównego pozostawiamy Django.
+Natomiast formularze dla składników renderujemy ręcznie.
+
+.. attention::
+
+	Podczas ręcznego renderowania zestawów formularzy *formset* nie wolno
+	zapomnieć o polu ``management_form`` i polach ``id`` (identyfikatorów)
+	kolejnych formularzy.
+
+Po zdefiniowaniu formularzy, utworzeniu adresu, widoku i szablonu
+możemy dodawać nowe pizze!
+
+UpdateView
+==========
+
+**UpdateView** – to widok umożliwiający edycję utworzonych danych, współdzieli
+z widokiem dodawania formularz, *formset* i szablon.
+
+**Adres edycji** definiujemy w pliku :file:`pizza/urls.py`:
+
+.. raw:: html
+
+	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: html
+.. literalinclude:: pizza/urls_0345.py
+    :linenos:
+    :lineno-start: 13
+    :lines: 13
+
+Adres składać się będzie z części ``/edytuj/``, po której podany powinien zostać
+agrument o nazwie ``pk`` będący liczbą. Przykładowy poprawny adres może mieć
+więc postać ``/edytuj/2``. Nazwa argumentu ``pk`` nie jest przypadkowa,
+to skrót od słów ang. `primary key` (klucz podstawowy). Jest on automatycznie
+przekazywany do klas widoków opartych na modelach.
+
+Sam widok umieszczamy na końcu pliku :file:`pizza/views.py`:
+
+.. raw:: html
+
+	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: html
+.. literalinclude:: pizza/views_03.py
+    :linenos:
+    :lineno-start: 13
+    :lines: 13
+    :emphasize-lines: 20, 22-24
+
+Jak widać większość kodu jest identyczna z widokiem dodawania. Są jednak ważne różnice:
+
+1. W metodzie ``post()`` instrukcja ``self.object = self.get_object()`` – utworzenie
+   instancji edytowanego obiektu;
+2. Argument ``instance`` zestawu formularzy, zawierający dane edytowanych składników,
+   przyjmuje wartości z ``self.object`` już w metodzie ``post()``, a nie w metodzie
+   ``form_valid()``.
+
+Na koniec warto wspomnieć, że zapisywanie edytowanych danych dochodzi do skutku,
+o ile dane zostały zmienione.
+
+DeleteView
+==========
+
+[todo]
