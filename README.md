@@ -1,6 +1,9 @@
 # Mały Bar
 Przykładowa aplikacja sieciowa w Django
 
+![](https://img.shields.io/travis/HannaAdamski/malybar.svg)
+![](https://img.shields.io/coveralls/HannaAdamski/malybar.svg)
+
 # Aplikacja wykorzystuje
 - Django 1.10.4
 - django-registration
