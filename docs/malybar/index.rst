@@ -88,7 +88,7 @@ Poznajmy strukturę plików naszego projektu. W terminalu wydajemy jedno z polec
 .. code-block:: bash
 
   ~/Django/malybar$ tree
-	~/Django/malybar$ ls -R
+  ~/Django/malybar$ ls -R
 
 
 .. figure:: img/django03.jpg
@@ -163,10 +163,37 @@ dodamy konfigurację aplikacji `pizza`, na końcu zainstalowanej wcześniej `dja
     :lineno-start: 108
     :lines: 108-110
 
+Po zapisaniu zmian, uruchomieniu serwera i otwarciu adresu 127.0.0.1:8000 w przeglądarce, zobaczymy:
 
-**Konfiguracja adresów URL projektu** zawarta jest w pliku :file:`malybar/urls.py`. Każda aplikacja definiuje
+[zrzut]
+
+Widok domyślny
+==============
+
+**Mapowanie adresów URL** aplikacji tworzymy w nowym pliku :file:`pizza/urls.py`,
+który wypełniamy następującym kodem:
+
+.. raw:: html
+
+    <div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: python
+.. literalinclude:: pizza/urls_01.py
+    :linenos:
+    :lineno-start: 1
+    :lines: 1-
+    :emphasize-lines: 3, 6
+
+
+Lista ``urlpatterns`` zawiera powiązania między adresami URL a obsługującymi je widokami
+zapisanymi w pliku :file:`views.py`, który importujemy w drugiej linii.
+
+Funkcja ``url()`` przyporządkowuje adresowi URL widok, który go obsługuje. Pierwszy parametr to wyrażenie
+regularne, do którego Django próbuje dopasować adres otrzymany w żądaniu od klienta. Drugi to nazwa widoku.
+Trzeci to unikalna nazwa, dzięki której można odwoływać się w aplikacji do zdefiniowanego adresu.
+
+**Konfiguracja adresów URL** projektu zawarta jest w pliku :file:`malybar/urls.py`. Każda aplikacja definiuje
 zazwyczaj swoją listę obsługiwanych adresów, którą należy dołączyć:
-
 
 .. raw:: html
 
@@ -183,32 +210,6 @@ Funkcja ``include()`` jako pierwszy parametr przyjmuje ścieżkę dostępu do ko
 aplikacji. W praktyce jest to nazwa katalogu, w którym znajduje się aplikacja, operator ``.`` (kropka)
 oraz domyślna nazwa pliku konfiguracyjnego :file:`urls.py` bez rozszerzenia.
 Wartość parametru ``namespace`` definiuje przestrzeń nazw, w której dostępne będą adresy używane w aplikacji.
-
-
-Widok domyślny
-==============
-
-**Mapowanie adresów URL aplikacji** tworzymy w nowym pliku :file:`pizza/urls.py`,
-który wypełniamy następującym kodem:
-
-.. raw:: html
-
-    <div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
-
-.. highlight:: python
-.. literalinclude:: pizza/urls_01.py
-    :linenos:
-    :lineno-start: 1
-    :lines: 1-
-    :emphasize-lines: 2, 5
-
-
-Lista ``urlpatterns`` zawiera powiązania między adresami URL a obsługującymi je widokami
-zapisanymi w pliku :file:`views.py`, który importujemy w drugiej linii.
-
-Funkcja ``url()`` przyporządkowuje adresowi URL widok, który go obsługuje. Pierwszy parametr to wyrażenie
-regularne, do którego Django próbuje dopasować adres otrzymany w żądaniu od klienta. Drugi to nazwa widoku.
-Trzeci to unikalna nazwa, dzięki której można odwoływać się w aplikacji do zdefiniowanego adresu.
 
 **Widok** definiuje jakiś typ strony WWW, za pomocą którego użytkownik wykonuje w aplikacji
 jakieś operacje, np. wyświetla zestawienie danych. Technicznie widok zazwyczaj składa się
@@ -249,7 +250,7 @@ Oprócz tagów HTML-a, zawiera zmienne oraz tagi sterujące języka szablonów D
 
 	Szablony umieszczamy w katalogu: :file:`pizza/templates/pizza`!
 
-Zawartość szablonu :file:`index.html`:
+Zawartość szablonu :file:`pizza/templates/index.html`:
 
 .. raw:: html
 
@@ -287,6 +288,9 @@ W przypadku błędów Django wyświetla obszerne informacje, które na pierwszy 
 są bardzo skomplikowane. Nie musisz studiować całości, żeby zrozumieć, co poszło nie tak.
 Skup się na początku komunikatu!
 
+[zrzut]
+
+[zrzut]
 
 Model danych
 ============
@@ -345,7 +349,7 @@ Po dokonaniu zmian w bazie tworzymy tzw. *migrację*, w terminalu wydajemy polec
 
 .. code-block:: bash
 
-  ~/Django/malybar$ python manage.py make migrations pizza
+  ~/Django/malybar$ python manage.py makemigrations pizza
   ~/Django/malybar$ python manage.py migrate
 
 **Migracja** – tworzona przez pierwsze polecenie, to informacje o zmianie w bazy danych zapisywana
