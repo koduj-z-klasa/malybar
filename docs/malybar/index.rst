@@ -81,7 +81,7 @@ który możemy wywołać wpisując w przeglądarce adres: ``127.0.0.1:8000``.
 Większość zmian w kodzie nie wymaga restartowania serwera. W razie potrzeby
 serwer zatrzymujemy naciskając w terminalu skrót :kbd:`CTRL+C`.
 
-.. image:: img/django01.jpg
+.. figure:: img/django_01.jpg
 
 Poznajmy strukturę plików naszego projektu. W terminalu wydajemy jedno z poleceń:
 
@@ -91,7 +91,8 @@ Poznajmy strukturę plików naszego projektu. W terminalu wydajemy jedno z polec
   ~/Django/malybar$ ls -R
 
 
-.. figure:: img/django03.jpg
+.. figure:: img/django_02.jpg
+
 
 Nazwa zewnętrznego katalogu :file:`malybar` nie ma znaczenia, można ją dowolnie zmieniać,
 to tylko pojemnik na projekt. Zawiera on:
@@ -121,6 +122,10 @@ Utworzymy teraz naszą aplikację `pizza` i zobaczymy strukturę plików:
 	~/Django/malybar$ tree pizza
 	lub:
 	~/Django/malybar$ ls -R pizza
+
+
+.. figure:: img/django_03.jpg
+
 
 **Katalog aplikacji** :file:`malybar/pizza` zawiera:
 
@@ -165,7 +170,7 @@ dodamy konfigurację aplikacji `pizza`, na końcu zainstalowanej wcześniej `dja
 
 Po zapisaniu zmian, uruchomieniu serwera i otwarciu adresu 127.0.0.1:8000 w przeglądarce, zobaczymy:
 
-[zrzut]
+.. figure:: img/django_04.jpg
 
 Widok domyślny
 ==============
@@ -284,13 +289,19 @@ W tym momencie powinieneś przetestować działanie aplikacji. Sprawdź, czy dzi
 nie, uruchom go. W przeglądarce odśwież lub wpisz adres domyślny serwera testowego, tj.:
 ``127.0.0.1:8000``. Powinieneś zobaczyć nazwę projektu i powitanie.
 
-W przypadku błędów Django wyświetla obszerne informacje, które na pierwszy rzut oka
-są bardzo skomplikowane. Nie musisz studiować całości, żeby zrozumieć, co poszło nie tak.
-Skup się na początku komunikatu!
+.. figure:: img/django_06.jpg
 
-[zrzut]
 
-[zrzut]
+.. tip::
+
+  **Programowanie to sztuka wykrywania i poprawiania błędów!**
+  W przypadku błędów Django wyświetla obszerne informacje, które na pierwszy rzut oka
+  są bardzo skomplikowane. Nie musisz studiować całości, żeby zrozumieć, co poszło nie tak.
+  Skup się na początku komunikatu!
+
+
+.. figure:: img/django_05.jpg
+
 
 Model danych
 ============
@@ -359,7 +370,7 @@ Drugie polecenie na podstawie migracji wszystkich zarejestrowanych aplikacji (w 
 buduje lub aktualizuje bazę danych. Z nazw modeli Django utworzy odpowiednie tabele, w oparciu o zdefiniowane
 właściwości – odpowiednie kolumny.
 
-[django_o7.png]
+.. figure:: img/django_07.jpg
 
 Zmiany modeli
 -------------
@@ -432,7 +443,8 @@ Aplikacja w panelu administratora: uzupełniamy plik :file:`pizza/admin.py`:
 Po zaimportowaniu modeli danych rejestrujemy je w panelu, dzięki temu będziemy mogli dodawać
 i modyfikować dane użytkowników i aplikacji.
 
-[django_08.png]
+.. figure:: img/django_08.jpg
+
 
 Zarządzanie danymi
 ------------------
@@ -449,7 +461,8 @@ Zarządzanie danymi
 	Serwer testowy wyświetla pełen zapis sesji w oknie terminala.
 
 
-[dango_09.png]
+.. figure:: img/django_09.jpg
+
 
 Lepszy panel
 ------------
@@ -497,7 +510,7 @@ nie musi wybierać autora (czyli siebie) z listy.
 Do rejestrowania klas modyfikujących domyślną klasę ``ModelAdmin`` używamy dekoratora
 w postaci ``@admin.register(models.Pizza)``.
 
-[django_010.png]
+.. figure:: img/django_10.jpg
 
 Użytkownicy
 ===========
@@ -539,7 +552,7 @@ Następnie włączamy konfigurację adresów URL aplikacji do pliku :file:`malyb
 Teraz możemy zobaczyć, jakie adresy udostępnia aplikacja `django-registration`,
 wpisując w przeglądarce adres ``127.0.0.1:8000/konta/``:
 
-[django_011.png]
+.. figure:: img/django_11.jpg
 
 Jak widać, mamy do dyspozycji m.in następujące adresy:
 
@@ -641,7 +654,8 @@ Na końcu pliku umieść kod:
 	Metoda ``is_authenticated`` zwraca prawdę, jeżeli użytkownik został zalogowany.
 
 
-[django_012.png]
+.. figure:: img/django_12.jpg
+
 
 Widok ListView
 ==============
@@ -725,7 +739,7 @@ Na koniec dodaj do szablonu :file:`index.html` odnośnik do listy. W atrybucie `
 Zwróć uwagę, że **nazwa URL-a poprzedzona została nazwą przestrzeni nazw**, którą zdefiniowaliśmy
 w parametrze ``namespace`` podczas włączania listy adresów naszej aplikacji do listy projektu.
 
-[django_013.png]
+.. figure:: img/django_13.jpg
 
 Create View
 ===========
@@ -892,7 +906,7 @@ Natomiast formularze dla składników renderujemy ręcznie.
 Po zdefiniowaniu formularzy, utworzeniu adresu, widoku i szablonu
 możemy dodawać nowe pizze! Nie zapomnij o dodaniu odnośnika na stronie głównej!
 
-[django_014.png]
+.. figure:: img/django_14.jpg
 
 UpdateView
 ==========
@@ -1011,11 +1025,21 @@ z następującą zawartością:
 Obiekt pizzy, który usuwamy, dostępny jest w zmiennej ``object``. Dodatkowo
 w pętli wyświetlamy przekazane przez kontekst składniki.
 
-Bootstrap i reszta
+
+.. figure:: img/django_16.jpg
+
+
+Piękne szablony
 ==================
 
 Ponieważ o atrakcyjności serwisu w dużej mierze decyduje jego wygląd, a także
 interaktywny interfejs, zobaczymy, jak względnie łatwo dodać do projektu
 media (np. pliki graficzne), szablony stylów i skrypty JavaScript.
+Zaczniemy od porządnego szkieletu szablonów.
+
+**Szablon bazowy** – to szkielet stron w naszym serwisie; zawiera powtarzające się elementy,
+np. menu, jak również bloki, które można zmieniać na konkretnych stronach.
+Tworzymy plik :file:`pizza/templates/base.html`:
 
 [todo]
+
