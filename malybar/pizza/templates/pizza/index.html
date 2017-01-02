@@ -1,21 +1,20 @@
 {% extends "pizza/base.html" %}
-{% block title %}Mały Bar{% endblock %}
 
-{% block content_title %}Mały Bar{% endblock %}
+{% block tytul_h1 %}
+  Mały Bar
+{% endblock %}
 
-{% block content %}
-    {% if not user.is_authenticated %}
-        <h2>{{ komunikat }}</h2>
-        <div class="btn-group">
-            <span><a href="{% url 'auth_login' %}" class="btn btn-primary btn-sm">Zaloguj się</a></span> lub
-            <span><a href="{% url 'registration_register' %}" class="btn btn-primary btn-sm">Załóż konto</a></span>
-        </div>
-    {% else %}
-        <h2>Witaj w aplikacji Pizza, {{ user.username | upper }}!</h2>
-        <h3>Operacje:</h3>
-        <div class="btn-group">
-            <span><a href="{% url 'pizza:dodaj' %}" class="btn btn-primary btn-sm">Dodaj pizzę</a></span>
-            <span><a href="{% url 'pizza:lista' %}" class="btn btn-primary btn-sm">Lista pizz</a></span>
-        </div>
-    {% endif %}
+{% block tresc %}
+  <p>{{ komunikat }}</p>
+{% endblock %}
+
+{% block linki_ul %}
+  <li><a href="http://django-maly-bar.rtfd.io">Dokumentacja aplikacji</a></li>
+  <li><a href="https://www.djangoproject.com/">Django – web framework</a></li>
+  <li><a href="http://django.pl/">Polska strona Django</a></li>
+  <li><a href="http://getbootstrap.com/">Bootstrap</a></li>
+  <li><a href="http://www.w3schools.com/bootstrap/">Bootstrap Tutorial
+  </a></li>
+  <li><a href="https://www.python.org/">Python</a></li>
+  <li><a href="http://python101.readthedocs.io/">Materiały Python 101</a></li>
 {% endblock %}

@@ -1,27 +1,24 @@
 {% extends "pizza/base.html" %}
-{% block title %}Mały Bar – Pizza{% endblock %}
 
-{% block content_title %}
-    Lista pizz
+{% block tytul_h1 %}
+  Lista pizz
 {% endblock %}
 
-{% block content %}
-
-    <table class="table">
-    <tr><th>Lp.</th><th>Nazwa</th><th>Info</th><th>Operacje</th></tr>
-    {% for p in object_list %}
-    <tr>
-        <td>{{ forloop.counter }}</td>
-        <td>{{ p.nazwa }}</td>
-        <td>{{ p.autor.username }} ({{ p.data }})</td>
-        <td>
-            {% if p.autor.username == user.username %}
-                <a href="{% url 'pizza:edytuj' p.id %}" class="btn btn-success btn-xs">Edytuj</a> &bull;
-                <a href="{% url 'pizza:usun' p.id %}" class="btn btn-success btn-xs">Usuń</a>
-            {% endif %}
-        </td>
-    </tr>
-    {% endfor %}
-    </table>
-
+{% block tresc %}
+<table class="table">
+<tr><th>Lp.</th><th>Nazwa</th><th>Info</th><th>Operacje</th></tr>
+{% for p in object_list %}
+<tr>
+    <td>{{ forloop.counter }}</td>
+    <td>{{ p.nazwa }}</td>
+    <td>{{ p.autor.username }} ({{ p.data }})</td>
+    <td>
+        {% if p.autor.username == user.username %}
+            <a href="{% url 'pizza:edytuj' p.id %}">Edytuj</a> &bull;
+            <a href="{% url 'pizza:usun' p.id %}">Usuń</a>
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}
+</table>
 {% endblock %}

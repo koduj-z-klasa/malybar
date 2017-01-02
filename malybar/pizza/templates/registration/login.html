@@ -1,16 +1,18 @@
 {% extends "pizza/base.html" %}
-{% block content %}
-<h1>Logowanie</h1>
+
+{% block tytul_h1 %}
+  Logowanie
+{% endblock %}
+
+{% block tresc %}
   <form method="post" action=".">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Zaloguj się" class="btn btn-success" />
-    <input type="hidden" name="next" value="{{ next }}" />
+    <input type="submit" value="Zaloguj się">
   </form>
 <hr>
 <p>
   Nie masz konta?<br>
-  <a href="{% url 'registration_register' %}" class="btn btn-success btn-sm">Utwórz konto!</a>
+  <a href="{% url 'registration_register' %}">Utwórz konto!</a>
 </p>
-
 {% endblock %}
