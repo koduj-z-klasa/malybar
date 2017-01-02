@@ -359,14 +359,17 @@ Drugie polecenie na podstawie migracji wszystkich zarejestrowanych aplikacji (w 
 buduje lub aktualizuje bazę danych. Z nazw modeli Django utworzy odpowiednie tabele, w oparciu o zdefiniowane
 właściwości – odpowiednie kolumny.
 
+[django_o7.png]
 
 Zmiany modeli
 -------------
 
+Modele można zmieniać.
+
 1. Do modelu `Pizza` dodamy pole przechowujące użytkownika, który dodał ją do bazy.
 
 	- przed definicjami klas dodaj import ``from django.contrib.auth.models import User``
-	- dodaj klucz obcy o nazwie ``autor`` wskazujący na model ``User``
+	- dodaj klucz obcy o nazwie ``autor`` wskazujący na model ``User``: ``autor = models.ForeignKey(User, on_delete=models.CASCADE)``
 
 2. Dodamy możliwość "autoprezentacji" modeli, czyli wyświetlania ich znakowej reprezentacji.
 
@@ -374,8 +377,8 @@ Zmiany modeli
 
 .. code-block:: python
 
-      def __unicode__(self):
-        return u'%s' % (self.nazwa)
+        def __unicode__(self):
+            return u'%s' % (self.nazwa)
 
 3. W panelu administracyjnym przydatna jest forma liczby mnogiej służąca nazywaniu egzemplarzy danego modelu.
 
@@ -383,10 +386,21 @@ Zmiany modeli
 
 .. code-block:: python
 
-      class Meta:
-        verbose_name_plural = 'pizze'
+        class Meta:
+            verbose_name_plural = 'pizze'
 
-4. Na koniec utwórz migrację aplikacji i zaktualizuj bazę danych!
+.. warning::
+
+  **Zapamiętaj**: po zmianie modelu należy utworzyć migrację aplikacji (``makemigrations``),
+  a następnie zaktualiz bazę danych projektu (``migrate``)!
+
+
+.. tip::
+
+  Jeżeli z jakichś powodów kolejnej migracji nie da się zastosować, można:
+  - usunąć bazę :file:`db.sqlite3`;
+  - usunąć katalog :file:`migrations` aplikacji;
+  - ponownie utworzyć migrację i zaktualizować bazę projektu.
 
 
 Strona administracyjna
@@ -418,11 +432,13 @@ Aplikacja w panelu administratora: uzupełniamy plik :file:`pizza/admin.py`:
 Po zaimportowaniu modeli danych rejestrujemy je w panelu, dzięki temu będziemy mogli dodawać
 i modyfikować dane użytkowników i aplikacji.
 
+[django_08.png]
+
 Zarządzanie danymi
 ------------------
 
 1. Uruchom serwer i wywołaj w przeglądarce adres: ``127.0.0.1:8000/admin``.
-2. Zaloguj się jako administrator, dodaj pizze i przynajmniej jeden składnik.
+2. Zaloguj się jako administrator, dodaj pizzę i przynajmniej jeden składnik.
 3. Utwórz konto dla użytkownika "uczen" z hasłem "q1w2e3r4". Przydziel mu prawa do dodawania, modyfikowania i usuwania pizz i składników. Uwaga: nie zapomnij zaznaczyć opcji "W zespole"!
 4. Zaloguj się na konto "uczen" i dodaj jeszcze jedną pizzę z co najmniej jednym składnikiem.
 
@@ -431,6 +447,9 @@ Zarządzanie danymi
 	Obsługa panelu administracyjnego jest dobrą okazją, żeby zobaczyć jak wygląda komunikacja
 	między klientem a serwerem w aplikacjach sieciowych wykorzystujących protokół http.
 	Serwer testowy wyświetla pełen zapis sesji w oknie terminala.
+
+
+[dango_09.png]
 
 Lepszy panel
 ------------
@@ -465,20 +484,20 @@ W klasie `PizzaAdmin` projektujemy wygląd całego formularza dodawania pizz.
 Używamy następujących opcji:
 
 - ``exclude`` – lista pól wykluczonych z formularza;
-- ``inlines`` – nazwa klasy definiującej sposób wyświetlania formularza dla innych modeli;
+- ``inlines`` – nazwa klasy definiującej sposób wyświetlania formularzy dla innych modeli;
 - ``search_fields`` – lista pól, które będą przeglądane podczas wyszukiwania obiektów;
 - ``list_per_page`` – maksymalna ilość obiektów pokazywanych na stronie;
 - ``formfield_overrides`` – słownik, w którym kluczami są klasy pól formularza; służy modyfikacji ich wyświetlania, w naszym przypadku ustalamy tu właściwości pola tekstowego.
 
 Utworzenie swojej klasy administracyjnej pozwala również na modyfikację zachowań
-panelu, np. zapisywania danych. Metoda ``save_model`` pozwala nam przypisać
+panelu, np. zapisywania danych. Metoda ``save_model()`` pozwala nam przypisać
 zalogowanego użytkownika jako autora dodawanego obiektu. Dzięki temu użytkownik
-nie musi wybierać się z listy.
+nie musi wybierać autora (czyli siebie) z listy.
 
 Do rejestrowania klas modyfikujących domyślną klasę ``ModelAdmin`` używamy dekoratora
 w postaci ``@admin.register(models.Pizza)``.
 
-[zrzut panelu]
+[django_010.png]
 
 Użytkownicy
 ===========
@@ -498,6 +517,12 @@ Teraz na końcu tego pliku dodamy kilka ustawień:
     :lines: 124-127
 
 
+.. tip::
+
+  Uwaga: komentarze w powyższym kodzie zawierają polskie znaki, jeżeli wstawisz je do pliku,
+  pamiętaj o dodaniu informacji o kodowaniu znaków w pierwszej lini!
+
+
 Następnie włączamy konfigurację adresów URL aplikacji do pliku :file:`malybar/urls.py`:
 
 .. raw:: html
@@ -514,7 +539,7 @@ Następnie włączamy konfigurację adresów URL aplikacji do pliku :file:`malyb
 Teraz możemy zobaczyć, jakie adresy udostępnia aplikacja `django-registration`,
 wpisując w przeglądarce adres ``127.0.0.1:8000/konta/``:
 
-[zrzut]
+[django_011.png]
 
 Jak widać, mamy do dyspozycji m.in następujące adresy:
 
@@ -558,7 +583,7 @@ Potrzebujemy również szablonu logowania, który umieszczamy w pliku
     :lineno-start: 1
     :lines: 1-
 
-Adresy URL wstawiamy w szablonach za pomocą tagu ``url``, który jako pierwszy obowiązkowy argument
+**Adresy URL w szablonach** wstawiamy za pomocą tagu ``url``, który jako pierwszy obowiązkowy argument
 przyjmuje nazwę adresu zdefiniowaną w argumencie ``name`` w plikach :file:`urls.py`.
 
 .. attention::
@@ -597,13 +622,14 @@ Na końcu pliku umieść kod:
 .. code-block:: html
 
   <ul>
-	{% if not user.is_authenticated %}
-	  <li><a href="{% url 'nazwa_adresu' %}">Zaloguj się</a></li>
-	  <li><a href="{% url 'nazwa_adresu' %}">Utwórz konto</a></li>
-	{% else %}
-	  <li><a href="{% url 'nazwa_adresu' %}">Wyloguj się</a></li>
-	{% endif %}
-	</ul>
+    {% if not user.is_authenticated %}
+      <li><a href="{% url 'nazwa_adresu' %}">Zaloguj się</a></li>
+      <li><a href="{% url 'nazwa_adresu' %}">Utwórz konto</a></li>
+    {% else %}
+      <li><a href="{% url 'nazwa_adresu' %}">Wyloguj się</a></li>
+    {% endif %}
+  </ul>
+
 
 – i zamień tekst `nazwa_adresu` na właściwe nazwy adresów URL.
 
@@ -614,6 +640,8 @@ Na końcu pliku umieść kod:
 	W szablonach dostępny jest obiekt ``user`` zawierający informacje o użytkowniku.
 	Metoda ``is_authenticated`` zwraca prawdę, jeżeli użytkownik został zalogowany.
 
+
+[django_012.png]
 
 Widok ListView
 ==============
@@ -688,7 +716,7 @@ wyświetlamy odnośniki umożliwiające edycję i usuwanie obiektów.
 	jeżeli potrzebujemy pętli.
 
 
-Na koniec dodaj do szablonu :file:`index.html` odnośnik do listy. Użyj kodu:
+Na koniec dodaj do szablonu :file:`index.html` odnośnik do listy. W atrybucie ``href`` odnośnika użyj kodu:
 
 .. code-block:: html
 
@@ -697,7 +725,7 @@ Na koniec dodaj do szablonu :file:`index.html` odnośnik do listy. Użyj kodu:
 Zwróć uwagę, że **nazwa URL-a poprzedzona została nazwą przestrzeni nazw**, którą zdefiniowaliśmy
 w parametrze ``namespace`` podczas włączania listy adresów naszej aplikacji do listy projektu.
 
-[zrzut]
+[django_013.png]
 
 Create View
 ===========
@@ -709,7 +737,7 @@ Na początku utworzymy nowy plik :file:`pizza/forms.py`, z następującą zawart
 
 	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
 
-.. highlight:: html
+.. highlight:: python
 .. literalinclude:: pizza/forms_01.py
     :linenos:
     :lineno-start: 1
@@ -744,7 +772,7 @@ Klasę `SkladnikiFormSet` wykorzystamy po to, aby można było dodawać dane piz
 i składników w obrębie jednej strony, podobnie jak w panelu administracyjnym.
 
 
-.. attention::
+.. tip::
 
 	Definiowanie formularzy używanych w panelu administracyjnym,
 	czy na stronach, w tym formularzy `inline`, wymaga określania podobnych
@@ -806,8 +834,8 @@ klasy rodzica, czyli `CreateView`. Właściwości:
 
 	**GET i POST** – to dwa postawowe typy żądań zdefiniowane w protokole `HTTP <https://pl.wikipedia.org/wiki/Hypertext_Transfer_Protocol>`_:
 
-	1. `GET` – to żądanie klienta (przeglądarki), które dotyczy zazwyczaj pobrania zasobu z serwera bez zmieniania danych, innymi słowy są to operacje odczytu;
-	2. `POST` – to żądania klinta wysyłające dane na serwer, aby zmienić dane po jego stronie: utworzyć nowe, zaktualizować lub usunąć.
+	1. GET – to żądanie klienta (przeglądarki), które dotyczy zazwyczaj pobrania zasobu z serwera bez zmieniania danych, innymi słowy są to operacje odczytu;
+	2. POST – to żądania klinta wysyłające dane na serwer, aby zmienić dane po jego stronie: utworzyć nowe, zaktualizować lub usunąć.
 
 Zadaniem widoku jest wygenerowanie pustego formularza, kiedy użytkownik wyświetla
 go po raz pierwszy (żądanie typu GET), później sprawdzenie przesłanych
@@ -818,7 +846,7 @@ widok dostosować do obsługi zestawu formularzy (ang. *formset*) składników.
 **Kontekst widoku** – zawiera słownik z danymi, metoda ``get_context_data()`` domyślnie
 dopisuje do niego formularz główny dla pizzy. My wykorzystujemy ją, aby dodać
 *formset* dla składników. W zależności od typu żądania
-tworzymy pusty (`GET`) lub wypełniony przesłanymi danymi zestaw (`POST`).
+tworzymy pusty (GET) lub wypełniony przesłanymi danymi zestaw (POST).
 
 **Walidacja danych** – to sprawdzanie poprawności przesłanych danych.
 Przeprowadzamy ją w metodzie ``post()``, którą nadpisujemy.
@@ -862,13 +890,17 @@ Natomiast formularze dla składników renderujemy ręcznie.
 	kolejnych formularzy.
 
 Po zdefiniowaniu formularzy, utworzeniu adresu, widoku i szablonu
-możemy dodawać nowe pizze!
+możemy dodawać nowe pizze! Nie zapomnij o dodaniu odnośnika na stronie głównej!
+
+[django_014.png]
 
 UpdateView
 ==========
 
 **UpdateView** – to widok umożliwiający edycję utworzonych danych, współdzieli
 z widokiem dodawania formularz, *formset* i szablon.
+
+**Import** – na początku, jak zwykle, importujemy klasę `UpdateView`. Dodajemy ją po przecinku za widokiem `CreateView`.
 
 **Adres edycji** definiujemy w pliku :file:`pizza/urls.py`:
 
@@ -897,8 +929,8 @@ Sam widok umieszczamy na końcu pliku :file:`pizza/views.py`:
 .. highlight:: python
 .. literalinclude:: pizza/views_03.py
     :linenos:
-    :lineno-start: 13
-    :lines: 13
+    :lineno-start: 57
+    :lines: 57-
     :emphasize-lines: 20, 22-24
 
 Jak widać większość kodu jest identyczna z widokiem dodawania. Są jednak ważne różnice:
@@ -917,6 +949,8 @@ DeleteView
 
 **DeleteView** – służy do usuwania danych, których identyfikator przesłany jest
 za pomocą żądania `POST`, w przypadku `GET` wyświetla formularz potwierdzenia.
+
+**Import** – importujemy klasę `DeleteView`. Dodajemy ją po przecinku za widokiem `UpdateView`.
 
 **Adres widoku** będzie podobny, jak dla edycji danych, tzn. przekażemy w nim identyfikator
 obiektu, który chcemy usunąć. W pliku :file:`pizza/urls.py` dopisujemy:
