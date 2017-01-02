@@ -19,7 +19,7 @@ i zainstalować w nim wymagane biblioteki
 Serwer uruchamiamy po aktywowaniu środowiska wirtualnego
 (poleceniem: `source .pve/bin/activate`), w katalogu `malybar`:
 
-    ~/malybar$ python manage.py runserver
+    ~/malybar/malybar$ python manage.py runserver
 
 W bazie są już konta użytkowników (login - hasło):
 
@@ -31,4 +31,6 @@ W bazie są już konta użytkowników (login - hasło):
 
 Sprawdzenia poprawnego działania aplikacji dokonujemy uruchamiając testy:
 
-    ~/linetc/malybar$ python manage.py test
+    ~/malybar/malybar$ python manage.py test
+
+Dokumentacja: http://django-maly-bar.readthedocs.io/
