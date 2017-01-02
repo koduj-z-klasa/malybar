@@ -941,6 +941,11 @@ Jak widać większość kodu jest identyczna z widokiem dodawania. Są jednak wa
    przyjmuje wartości z ``self.object`` już w metodzie ``post()``, a nie w metodzie
    ``form_valid()``.
 
+.. tip::
+
+  W szablonie :file:`pizza_list.html` warto uzupełnić odnośnik do edycji.
+  Użyj kodu ``{% url 'pizza:edytuj' p.id %}``.
+
 Na koniec warto wspomnieć, że zapisywanie edytowanych danych dochodzi do skutku,
 o ile dane zostały zmienione.
 
