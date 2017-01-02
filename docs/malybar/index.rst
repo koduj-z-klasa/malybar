@@ -1034,12 +1034,29 @@ Piękne szablony
 
 Ponieważ o atrakcyjności serwisu w dużej mierze decyduje jego wygląd, a także
 interaktywny interfejs, zobaczymy, jak względnie łatwo dodać do projektu
-media (np. pliki graficzne), szablony stylów i skrypty JavaScript.
-Zaczniemy od porządnego szkieletu szablonów.
+framework `Bootstrap <http://getbootstrap.com/>`_ dostarczający gotowe elementy
+HTML, CSS i JavaScript przeznaczone do projektowania mobilnych i responsywnych stron WWW.
 
 **Szablon bazowy** – to szkielet stron w naszym serwisie; zawiera powtarzające się elementy,
-np. menu, jak również bloki, które można zmieniać na konkretnych stronach.
+np. menu, jak również bloki, które można wypełniać dostosowaną treścią w szablonach dziedziczących.
 Tworzymy plik :file:`pizza/templates/base.html`:
 
-[todo]
+.. raw:: html
 
+  <div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: html
+.. literalinclude:: pizza/templates/pizza/base.html
+    :linenos:
+    :lineno-start: 1
+    :lines: 1-
+
+Dokument oparty jest na przykładowym layoucie dostępnym na stronach Bootstrapa.
+W nagłówku strony w zanczniku ``<link>`` ładowany jest podstawowy komponent,
+tzn. arkusz stylów CSS :file:`bootstrap.min.css`. Na końcu szablonu w znacznikach
+``<script>`` dołączamy skrypty JavaScript: bibliotekę JQuery i komponent JS
+Bootstrapa, plik :file:`bootstrap.min.js`.
+
+[cdn.]
+
+.. figure:: img/django_17.jpg

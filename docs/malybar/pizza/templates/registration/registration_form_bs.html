@@ -1,0 +1,13 @@
+{% extends "pizza/base.html" %}
+
+{% block tytul_h1 %}
+  Tworzenie konta
+{% endblock %}
+
+{% block tresc %}
+<form action="." method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Utwórz konto">
+</form>
+{% endblock %}

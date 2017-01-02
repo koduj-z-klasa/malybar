@@ -1,0 +1,18 @@
+{% extends "pizza/base.html" %}
+
+{% block tytul_h1 %}
+  Usuwanie pizzy
+{% endblock %}
+
+{% block tresc %}
+<form action="." method="post">
+  {% csrf_token %}
+  <p>Czy na pewno chcesz usunąć pizzę:<br />"{{ object }}"?</p>
+    <ol>Składniki:
+    {% for s in skladniki %}
+      <li>{{ s.nazwa }}</li>
+    {% endfor %}
+    </ol>
+  <button type="submit">Usuń</button>
+</form>
+{% endblock %}

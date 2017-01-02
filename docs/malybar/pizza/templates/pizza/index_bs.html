@@ -1,0 +1,20 @@
+{% extends "pizza/base.html" %}
+
+{% block tytul_h1 %}
+  Mały Bar
+{% endblock %}
+
+{% block tresc %}
+  <p>{{ komunikat }}</p>
+{% endblock %}
+
+{% block linki_ul %}
+  <li><a href="http://django-maly-bar.rtfd.io">Dokumentacja aplikacji</a></li>
+  <li><a href="https://www.djangoproject.com/">Django – web framework</a></li>
+  <li><a href="http://django.pl/">Polska strona Django</a></li>
+  <li><a href="http://getbootstrap.com/">Bootstrap</a></li>
+  <li><a href="http://www.w3schools.com/bootstrap/">Bootstrap Tutorial
+  </a></li>
+  <li><a href="https://www.python.org/">Python</a></li>
+  <li><a href="http://python101.readthedocs.io/">Materiały Python 101</a></li>
+{% endblock %}
