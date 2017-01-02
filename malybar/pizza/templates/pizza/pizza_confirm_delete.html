@@ -10,7 +10,11 @@
     <form action="." method="post">
         {% csrf_token %}
         <p>Czy na pewno chcesz usunąć pizzę:<br />"{{ object }}"?</p>
-        {{ skladniki.as_p }}
+        <ol>Składniki:
+        {% for s in skladniki %}
+          <li>{{ s.nazwa }}</li>
+        {% endfor %}
+        </ol>
         <button type="submit" class="btn btn-warning">Usuń</button>
     </form>
     <hr>

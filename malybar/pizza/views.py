@@ -101,14 +101,11 @@ class PizzaUpdate(UpdateView):
 @method_decorator(login_required, 'dispatch')
 class PizzaDelete(DeleteView):
     model = models.Pizza
-    success_url = reverse_lazy('pizza:list')  # '/pizza/lista'
+    success_url = reverse_lazy('pizza:lista')  # '/pizza/lista'
 
     def get_context_data(self, **kwargs):
         context = super(PizzaDelete, self).get_context_data(**kwargs)
-        pizza = models.Pizza.objects.get(pk=self.object.id)
-        SkladnikFormSet = modelformset_factory(
-            models.Skladnik,
-            fields=('nazwa',))
-        context['skladniki'] = SkladnikFormSet(
-            queryset=models.Skladnik.objects.filter(nazwa=pizza))
+        # pizza = models.Pizza.objects.get(pk=self.object.id)
+        skladniki = models.Skladnik.objects.filter(pizza=self.object)
+        context['skladniki'] = skladniki
         return context
