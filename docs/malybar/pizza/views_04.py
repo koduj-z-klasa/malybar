@@ -8,7 +8,6 @@ from . import forms
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from django.forms.models import modelformset_factory
 
 
 def index(request):
@@ -99,14 +98,10 @@ class PizzaUpdate(UpdateView):
 @method_decorator(login_required, 'dispatch')
 class PizzaDelete(DeleteView):
     model = models.Pizza
-    success_url = reverse_lazy('pizza:list')  # '/pizza/lista'
+    success_url = reverse_lazy('pizza:lista')  # '/pizza/lista'
 
     def get_context_data(self, **kwargs):
         context = super(PizzaDelete, self).get_context_data(**kwargs)
-        pizza = models.Pizza.objects.get(pk=self.object.id)
-        SkladnikFormSet = modelformset_factory(
-            models.Skladnik,
-            fields=('nazwa',))
-        context['skladniki'] = SkladnikFormSet(
-            queryset=models.Skladnik.objects.filter(nazwa=pizza))
+        skladniki = models.Skladnik.objects.filter(pizza=self.object)
+        context['skladniki'] = skladniki
         return context

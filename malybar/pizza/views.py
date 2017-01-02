@@ -8,7 +8,6 @@ from . import forms
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
-from django.forms.models import modelformset_factory
 from django.template.response import TemplateResponse
 
 
@@ -105,7 +104,6 @@ class PizzaDelete(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super(PizzaDelete, self).get_context_data(**kwargs)
-        # pizza = models.Pizza.objects.get(pk=self.object.id)
         skladniki = models.Skladnik.objects.filter(pizza=self.object)
         context['skladniki'] = skladniki
         return context

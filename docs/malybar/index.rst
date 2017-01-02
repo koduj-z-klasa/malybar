@@ -756,7 +756,7 @@ i składników w obrębie jednej strony, podobnie jak w panelu administracyjnym.
 
 	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
 
-.. highlight:: html
+.. highlight:: python
 .. literalinclude:: pizza/urls_0345.py
     :linenos:
     :lineno-start: 12
@@ -772,7 +772,7 @@ dodajemy, jak zwykle, importy:
 
 	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
 
-.. highlight:: html
+.. highlight:: python
 .. literalinclude:: pizza/views_02.py
     :linenos:
     :lineno-start: 4
@@ -784,7 +784,7 @@ Następnie na końcu pliku :file:`pizza/views.py` umieszczamy kod:
 
 	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
 
-.. highlight:: html
+.. highlight:: python
 .. literalinclude:: pizza/views_02.py
     :linenos:
     :lineno-start: 19
@@ -872,7 +872,7 @@ z widokiem dodawania formularz, *formset* i szablon.
 
 	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
 
-.. highlight:: html
+.. highlight:: python
 .. literalinclude:: pizza/urls_0345.py
     :linenos:
     :lineno-start: 13
@@ -890,7 +890,7 @@ Sam widok umieszczamy na końcu pliku :file:`pizza/views.py`:
 
 	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
 
-.. highlight:: html
+.. highlight:: python
 .. literalinclude:: pizza/views_03.py
     :linenos:
     :lineno-start: 13
@@ -910,5 +910,69 @@ o ile dane zostały zmienione.
 
 DeleteView
 ==========
+
+**DeleteView** – służy do usuwania danych, których identyfikator przesłany jest
+za pomocą żądania `POST`, w przypadku `GET` wyświetla formularz potwierdzenia.
+
+**Adres widoku** będzie podobny, jak dla edycji danych, tzn. przekażemy w nim identyfikator
+obiektu, który chcemy usunąć. W pliku :file:`pizza/urls.py` dopisujemy:
+
+.. raw:: html
+
+	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: python
+.. literalinclude:: pizza/urls_0345.py
+    :linenos:
+    :lineno-start: 14
+    :lines: 14
+
+**Sam widok** umieszczamy na końcu pliku :file:`pizza/views.py`:
+
+.. raw:: html
+
+	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: python
+.. literalinclude:: pizza/views_04.py
+    :linenos:
+    :lineno-start: 98
+    :lines: 98-
+
+**Uzupełniamy kontekst**, ponieważ chcemy w szablonie potwierdzenia wyświetlić
+również listę składników pizzy. W metodzie ``get_context_data()``
+pobieramy listę składników w zapytaniu ``skladniki = models.Skladnik.objects.filter(pizza=self.object)``. Warto zwrócić uwagę na kryterium filtrowania rekordów.
+Używamy klucza obcego (pola ``pizza`` z modelu `Skladnik`), który musi
+odpowiadać obiektowi pizzy przypisanego do właściwości ``self.object`` widoku.
+
+.. note::
+
+	Widoki `UpdateView` i `DeleteView` na podstawie przekazanego identyfikatora
+	w zmiennej ``pk`` automatycznie pobierają odpowiedni obiekt z bazy przy
+	użyciu metody ``get_object()``.
+
+**Szablon widoku** nazywamy wg domyślnego schematu `model_confirm_delete.html`,
+czyli tworzymy plik :file:`pizza/templates/pizza/pizza_confirm_delete.html`
+z następującą zawartością:
+
+.. raw:: html
+
+	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: html
+.. literalinclude:: pizza/templates/pizza/pizza_confirm_delete_01.html
+    :linenos:
+    :lineno-start: 1
+    :lines: 1-
+
+Obiekt pizzy, który usuwamy, dostępny jest w zmiennej ``object``. Dodatkowo
+w pętli wyświetlamy przekazane przez kontekst składniki.
+
+Bootstrap i reszta
+==================
+
+Ponieważ o atrakcyjności serwisu w dużej mierze decyduje jego wygląd, a także
+interaktywny interfejs, zobaczymy, jak względnie łatwo dodać do projektu
+media (np. pliki graficzne), szablony stylów i skrypty JavaScript.
 
 [todo]
