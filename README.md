@@ -1,9 +1,6 @@
 # Mały Bar
 Przykładowa aplikacja sieciowa w Django
 
-![](https://img.shields.io/travis/HannaAdamski/malybar.svg)
-![](https://img.shields.io/coveralls/HannaAdamski/malybar.svg)
-
 # Aplikacja wykorzystuje
 - Django 1.10.4
 - django-registration
@@ -35,5 +32,12 @@ W bazie są już konta użytkowników (login - hasło):
 Sprawdzenia poprawnego działania aplikacji dokonujemy uruchamiając testy:
 
     ~/malybar/malybar$ python manage.py test
+
+Dodatkowo główne repozytorium jest spięte z testami wykonywanimy w chmurze. 
+
+![](https://img.shields.io/travis/HannaAdamski/malybar.svg)
+![](https://img.shields.io/coveralls/HannaAdamski/malybar.svg)
+
+Każda kopia repozytowium na GitHubie może uruchomić testy na włanym bezpłatnym koncie by objąć testami własne modyfikacje.
 
 Dokumentacja: http://django-maly-bar.readthedocs.io/
