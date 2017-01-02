@@ -1,3 +1,4 @@
+Sphinx==1.4.5
 Django==1.10.4
 django-registration
 dj-database-url
