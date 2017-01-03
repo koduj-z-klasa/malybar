@@ -11,11 +11,29 @@ na polskiej stronie Wikipedii: `Django (framework) <https://pl.wikipedia.org/wik
 Przygotowanie środowiska
 ========================
 
+.. attention::
+
+  Zanim zaczniesz zwróć uwagę, że:
+
+  - podane niżej polecenia zakładają, że pracujesz w systemie Linux;
+  - ``/`` znak *slash* jest separatorem katalogów i plików;
+  - ``~`` – oznacza katalog domowy użytkownika w Linuksie;
+  - ``~/Django`` – oznacza katalog, w którym należy wydawać polecenia;
+  - ``$`` – oznacza znak zachęty, po nim następują właściwe polecenia;
+  - ``.pve`` – kropka poprzedzająca nazwę katalogu lub pliku oznacza, że jest on ukryty;
+  - Linux rozróżnia małe i duże litery w nazwach katalogów i plików!
+  - ścieżki do katalogów i plików w treści podawane są względnie, np. :file:`pizza/urls.py`;
+  - w systemie Windows separatorem katalogów i plików jest znak ``\`` (backslash),
+    projekt lepiej budować w katalogu położonym na partycji innej niż systemowa,
+    wielkość liter w nazwach katalogów i plików nie jest brana pod uwagę;
+
+
 Do pracy z Django potrzebny jest przede wszystkim **interpreter Pythona 2.7.x**.
 Jest on domyślnie obecny w systemach Linux. Natomiast w systemach Windows i Mac OS X
 należy wejść na stronę `Donwload Python <https://www.python.org/downloads/>`_,
 pobrać odpowiedni instalator (32- lub 64-bitowy) Pythona (**wersja 2.7.x**!)
-i zainstalować. Opis instalacji znajdziesz na stronie `Interpreter Pythona <http://python101.readthedocs.io/pl/latest/env/windows.html#inerpreter-pythona>`_.
+i zainstalować. Opis instalacji znajdziesz na stronie
+`Interpreter Pythona <http://python101.readthedocs.io/pl/latest/env/windows.html#inerpreter-pythona>`_.
 
 Poza Pythonem potrzebny jest również instalator pakietów Pythona `pip`.
 W systemach Linux wywodzących się z Debiana (Ubuntu, Linux Mint)
@@ -44,7 +62,7 @@ zawierającego wybraną wersję Django. W konsoli wydajemy polecenia:
 
 Na początku tworzymy katalog do przechowywania projektu i wchodzimy do niego.
 Katalog nie jest niezbędny, jednak ułatwi utrzymanie porządku na dysku.
-Kolejne polecenie ``virtualenv .pve`` tworzy katalog o umownej nazwie :file:`.pve`.
+Polecenie ``virtualenv .pve`` tworzy ukryty katalog o umownej nazwie :file:`.pve`.
 Zawiera on najważniejsze komponenty Pythona. Aby skorzystać z przygotowanego środowiska,
 należy go zawsze na początku aktywować za pomocą polecenia ``source .pve/bin/activate``.
 Opuszczenie środowiska umożliwia komenda ``deactivate``.
@@ -52,6 +70,7 @@ Opuszczenie środowiska umożliwia komenda ``deactivate``.
 Polecenie ``pip install ...`` instaluje wskazaną wersję Django oraz dodatkową aplikację
 ułatwiającą zarządzanie użytkownikami. Tak zainstalowane moduły będą dostępne
 tylko w środowisku wirtualnym.
+
 
 Ćwiczenie
 ---------
@@ -61,33 +80,38 @@ Zgodnie z powyższym opisem przygotuj samodzielnie wirtualne środowisko do prac
 .. tip::
 
 	Projektując aplikację będziemy często korzystać z linii poleceń.
-	Nie zamykaj więc okna terminala.
+	Nie zamykaj więc okna terminala. Jednak **jeżeli przypadkowo zamkniesz terminal**,
+  uruchom go ponownie, wejdź do katalogu nadrzędnego środowiska wirtualnego
+  (``cd ~/Django``), wydaj polecenie ``source .pve/bin/activate``,
+  a na koniec przejdź do katalogu projektu (``cd malybar``), który
+  zaraz utworzymy.
+
 
 Projekt
 ========
 
-Upewnij się, że utworzone w poprzednim kroku wirtualne środowisko jest aktywne.
-Utworzymy teraz projekt i uruchomimy serwer deweloperski.
-Wydajemy polecenia:
+Upewnij się, że wirtualne środowisko Pythona jest aktywne.
+Utworzymy teraz projekt i uruchomimy serwer deweloperski. Wydajemy polecenia:
 
 .. code-block:: bash
 
-    ~/Django$ django-admin stratproject malybar
-    ~/Django$ cd malybar
-    ~/Django/malybar$ python manage.py runserver
+  ~/Django$ django-admin stratproject malybar
+  ~/Django$ cd malybar
+  ~/Django/malybar$ python manage.py runserver
 
-Tyle wystarczy, żeby utworzyć szkielet serwisu i uruchomić serwer deweloperski,
+Pierwsze polecenie tworzy szkielet serwisu, ostatnie uruchomia serwer deweloperski,
 który możemy wywołać wpisując w przeglądarce adres: ``127.0.0.1:8000``.
 Większość zmian w kodzie nie wymaga restartowania serwera. W razie potrzeby
 serwer zatrzymujemy naciskając w terminalu skrót :kbd:`CTRL+C`.
 
 .. figure:: img/django_01.jpg
 
-Poznajmy strukturę plików naszego projektu. W terminalu wydajemy jedno z poleceń:
+**Struktura plików projektu** – w terminalu wydajemy jedno z poleceń:
 
 .. code-block:: bash
 
   ~/Django/malybar$ tree
+  [lub]
   ~/Django/malybar$ ls -R
 
 
@@ -114,7 +138,7 @@ Aplikacja
 =========
 
 W ramach jednego projektu (serwisu internetowego) może działać wiele aplikacji.
-Utworzymy teraz naszą aplikację `pizza` i zobaczymy strukturę plików:
+Utworzymy teraz naszą aplikację `pizza` i zbadamy jej strukturę plików:
 
 .. code-block:: bash
 
@@ -282,8 +306,8 @@ używamy podwójnych nawiasów sześciennych: ``{{ nazwa_zmiennej }}``.
 	3) w katalogu :file:`templates/nazwa_aplikacji`: tworzymy szablon, który łączy znaczniki HTML-a i dane.
 
 
-Test widok domyślnego
----------------------
+Ćwiczenie
+---------
 
 W tym momencie powinieneś przetestować działanie aplikacji. Sprawdź, czy działa serwer. Jeżeli
 nie, uruchom go. W przeglądarce odśwież lub wpisz adres domyślny serwera testowego, tj.:
@@ -619,7 +643,7 @@ Na koniec szablon wyświetlany po wylogowaniu, czyli plik
     :lines: 1-
 
 
-Testowanie
+Ćwiczenie
 ----------
 
 Po dodaniu szablonów można już przetestować tworzenie konta, logowanie i komunikat po wylogowaniu
@@ -657,8 +681,8 @@ Na końcu pliku umieść kod:
 .. figure:: img/django_12.jpg
 
 
-Widok ListView
-==============
+ListView
+========
 
 Praktycznie w każdym serwisie występują strony zawierające zestawienie danych.
 Utworzymy więc widok prezentujący listę pizz.
@@ -689,7 +713,7 @@ Dodajemy kod:
     :lines: 7-11
     :emphasize-lines: 3-4
 
-Widoki generyczne (ang. *generic views*), udostępniane przez Django, służą przygotowywaniu typowych
+**Widoki generyczne** (ang. *generic views*), udostępniane przez Django, służą przygotowywaniu typowych
 stron WWW. `ListView` – jak wskazuje nazwa – tworzy stronę z listą obiektów. Najważniejszym
 argumentem widoku jest ``model``, czyli nazwa modelu obiektów, które mają być wyświetlane.
 
@@ -1029,8 +1053,8 @@ w pętli wyświetlamy przekazane przez kontekst składniki.
 .. figure:: img/django_16.jpg
 
 
-Piękne szablony
-==================
+Szablon bazowy
+==============
 
 Ponieważ o atrakcyjności serwisu w dużej mierze decyduje jego wygląd, a także
 interaktywny interfejs, zobaczymy, jak względnie łatwo dodać do projektu
@@ -1051,27 +1075,88 @@ Tworzymy plik :file:`pizza/templates/base.html`:
     :lineno-start: 1
     :lines: 1-
 
-Dokument oparty jest na przykładowym layoucie dostępnym na stronach Bootstrapa.
-W nagłówku strony w znaczniku ``<link>`` ładowany jest podstawowy komponent,
+**Zasoby statyczne**, czyli rzadko zmieniane, to arkusze stylów CSS, skrypty JS,
+pliki graficzne, ewentualnie czcionki i ikony, umieszcza się w podkatalogu
+:file:`pizza/static/pizza`. Dla przejrzystości grupuje się je zazwyczaj
+w folderach :file:`css`, :file:`js` czy :file:`images` – ich nazwy są umowne.
+
+Wstawianie zasobów statycznych do szablonu wymaga umieszczenia na początku
+dokumentu tagu ``{% load static %}``. Dzięki temu możemy generować poprawne
+adresy URL dla atrybutów ``href`` czy ``src`` za pomocą tagu
+``{% static 'względna_ścieżka_do_zasobu' %}``, np.:
+- ``href="{% static 'pizza/css/pizza.css' %}"``;
+- ``src="{% static 'pizza/images/pizza.jpg' %}"``.
+
+**Bloki szablonu** – to miejsca, które szablony dla poszczególnych stron
+serwisu mogą wypełniać własną zawartością. Blok definiujemy przy użyciu
+tagów: ``{% block nazwa_bloku %} treść_domyślna {% endblock %}``.
+
+Rozszerzanie szablonu
+---------------------
+
+Szablony poszczególnych widoków rozszerzają szablon bazowy dziedzicząc elementy
+powtarzalne i wypełniając bloki własną zawartością. Dotychczasową zawartość
+szablonu :file:`index.html` zastępujemy kodem:
+
+.. raw:: html
+
+  <div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: html
+.. literalinclude:: pizza/templates/pizza/index_bs.html
+    :linenos:
+    :lineno-start: 1
+    :lines: 1-
+
+Tag ``{% extendes "pizza/base.html" %}`` informuje, że korzystamy z podanego szablonu
+podstawowego. Sekwencje tagów ``{% block nazwa_bloku %} ... {% endblock %}``
+wypełniają zdefiniowane w szablonie bazowym bloki odpowiednią zawartością.
+
+Jeszcze jeden przykład. Szablon :file:`login.html` będzie wyglądał następująco:
+
+.. raw:: html
+
+  <div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: html
+.. literalinclude:: pizza/templates/registration/login_bs.html
+    :linenos:
+    :lineno-start: 1
+    :lines: 1-
+
+
+Ćwiczenie
+---------
+
+Dostosuj pozostałe szablony, tak aby korzystały z szablonu bazowego.
+
+.. figure:: img/django_17.jpg
+
+
+Bootstrap
+=========
+
+Szablon bazowy oparty został na przykładowym layoucie dostępnym na stronach Bootstrapa.
+W nagłówku strony w znaczniku ``<link>`` ładowany jest podstawowy komponent frameworka,
 tzn. arkusz stylów CSS :file:`bootstrap.min.css`. Na końcu szablonu w znacznikach
 ``<script>`` dołączamy skrypty JavaScript: bibliotekę JQuery i komponent JS
 Bootstrapa, plik :file:`bootstrap.min.js`.
 
 Podstawą Bootsrapa jest system podziału strony na 12 części o
-tej samej szerokości zwany `grid system <http://getbootstrap.com/css/#grid>`_ .
+tej samej szerokości zwany `grid system <http://getbootstrap.com/css/#grid>`_.
 Tworząc układ strony ustalamy szerokość kolumn łącząc części w grupy
 za pomocą klas CSS, np.:
 
 .. code-block:: html
 
-	<div class="container">
-  	<div class="row">
-  		<div class="col-sm-8">
-  			<!-- zawartość -->
-    	</div>
-			<div class="col-sm-4">
-  			<!-- zawartość -->
-    	</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8">
+        <!-- zawartość -->
+      </div>
+      <div class="col-sm-4">
+        <!-- zawartość -->
+      </div>
     </div>
   </div>
 
@@ -1098,24 +1183,13 @@ Cały layout ma więc trzy części:
 2. kontener zawierający jeden wiersz podzielony na dwie kolumny;
 3. kontener zawierający stopkę dokumentu.
 
-.. figure:: img/django_17.jpg
 
-**Zasoby statyczne**, czyli rzadko zmieniane, to arkusze stylów CSS, skrypty JS,
-pliki graficzne, ewentualnie czcionki i ikony, umieszcza się w podkatalogu
-:file:`pizza/static/pizza`. Dla przejrzystości grupuje się je zazwyczaj
-w folderach :file:`css`, :file:`js` czy :file:`images` – ich nazwy są umowne.
+.. raw:: html
 
-Wstawianie zasobów statycznych do szablonu wymaga umieszczenia na początku
-dokumentu tagu ``{% load static %}``. Dzięki temu możemy generować poprawne
-adresy URL dla atrybutów ``href`` czy ``src`` za pomocą tagu
-``{% static 'względna_ścieżka_do_zasobu' %}``, np.:
-- ``href="{% static 'pizza/css/pizza.css' %}"``;
-- ``src="{% static 'pizza/images/pizza.jpg' %}"``.
+  <hr>
 
-**Bloki szablonu** – to miejsca, które szablony dla poszczególnych stron
-serwisu mogą wypełniać własną zawartością. Blok definiujemy przy użyciu
-tagów: ``{% block nazwa_bloku %} treść_domyślna {% endblock %}``.
+.. note::
 
-Rozszerzanie szablonu
----------------------
-[todo]
+  Kompletny kod aplikacji dostępny jest w repozytorium:
+  `https://github.com/xinulsw/malybar <https://github.com/xinulsw/malybar>`_.
+
