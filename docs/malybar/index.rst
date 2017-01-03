@@ -1052,11 +1052,70 @@ Tworzymy plik :file:`pizza/templates/base.html`:
     :lines: 1-
 
 Dokument oparty jest na przykładowym layoucie dostępnym na stronach Bootstrapa.
-W nagłówku strony w zanczniku ``<link>`` ładowany jest podstawowy komponent,
+W nagłówku strony w znaczniku ``<link>`` ładowany jest podstawowy komponent,
 tzn. arkusz stylów CSS :file:`bootstrap.min.css`. Na końcu szablonu w znacznikach
 ``<script>`` dołączamy skrypty JavaScript: bibliotekę JQuery i komponent JS
 Bootstrapa, plik :file:`bootstrap.min.js`.
 
-[cdn.]
+Podstawą Bootsrapa jest system podziału strony na 12 części o
+tej samej szerokości zwany `grid system <http://getbootstrap.com/css/#grid>`_ .
+Tworząc układ strony ustalamy szerokość kolumn łącząc części w grupy
+za pomocą klas CSS, np.:
+
+.. code-block:: html
+
+	<div class="container">
+  	<div class="row">
+  		<div class="col-sm-8">
+  			<!-- zawartość -->
+    	</div>
+			<div class="col-sm-4">
+  			<!-- zawartość -->
+    	</div>
+    </div>
+  </div>
+
+Powyższy kod daje nam podział na 1. kolumnę o szerokości 8 części
+i 2. kolumnę o szerokości 4. Przyrostek ``-sm`` informuje, że podział
+ten obowiązuje dla rozdzielczości >= 768px. Podziałem części na kolumny
+możesz manipulować, pamiętać tylko trzeba, żeby ich suma dawała 12.
+
+Znacznik ``<div class="container">``, wyodrębnia sekcję strony,
+``<div class="row">`` tworzy podział na wiersze.
+
+Kolejnym często używanym elementem Bootstrapa jest menu umieszczane
+w znaczniku ``<nav>``. W szablonie wykorzystujemy menu przytwierdzone
+na stałe u góry strony, widoczne również w trakcie jej przewijania.
+Decyduje o tym klasa ``navbar-fixed-top``.
+
+Menu składa się z 2 części. Pierwsza wyznaczona klasą ``navbar-header``
+zawiera przycisk mobilny i obrazek, druga z identyfikatorem ``id=navbar``
+zawiera właściwe odnośniki w postaci elementów listy ``<ul>``.
+
+Cały layout ma więc trzy części:
+
+1. menu;
+2. kontener zawierający jeden wiersz podzielony na dwie kolumny;
+3. kontener zawierający stopkę dokumentu.
 
 .. figure:: img/django_17.jpg
+
+**Zasoby statyczne**, czyli rzadko zmieniane, to arkusze stylów CSS, skrypty JS,
+pliki graficzne, ewentualnie czcionki i ikony, umieszcza się w podkatalogu
+:file:`pizza/static/pizza`. Dla przejrzystości grupuje się je zazwyczaj
+w folderach :file:`css`, :file:`js` czy :file:`images` – ich nazwy są umowne.
+
+Wstawianie zasobów statycznych do szablonu wymaga umieszczenia na początku
+dokumentu tagu ``{% load static %}``. Dzięki temu możemy generować poprawne
+adresy URL dla atrybutów ``href`` czy ``src`` za pomocą tagu
+``{% static 'względna_ścieżka_do_zasobu' %}``, np.:
+- ``href="{% static 'pizza/css/pizza.css' %}"``;
+- ``src="{% static 'pizza/images/pizza.jpg' %}"``.
+
+**Bloki szablonu** – to miejsca, które szablony dla poszczególnych stron
+serwisu mogą wypełniać własną zawartością. Blok definiujemy przy użyciu
+tagów: ``{% block nazwa_bloku %} treść_domyślna {% endblock %}``.
+
+Rozszerzanie szablonu
+---------------------
+[todo]
