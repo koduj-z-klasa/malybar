@@ -563,7 +563,7 @@ Teraz na końcu tego pliku dodamy kilka ustawień:
 .. tip::
 
   Uwaga: komentarze w powyższym kodzie zawierają polskie znaki, jeżeli wstawisz je do pliku,
-  pamiętaj o dodaniu informacji o kodowaniu znaków w pierwszej lini!
+  pamiętaj o dodaniu informacji o kodowaniu znaków w pierwszej linii!
 
 
 Następnie włączamy konfigurację adresów URL aplikacji do pliku :file:`malybar/urls.py`:
@@ -869,17 +869,17 @@ Następnie na końcu pliku :file:`pizza/views.py` umieszczamy kod:
 Widok ``PizzaCreate`` to klasa dziedzicząca i dostosowująca właściwości i metody
 klasy rodzica, czyli `CreateView`. Właściwości:
 
-- ``model`` – pozwala okreslić model, dla którego tworzymy widok;
+- ``model`` – pozwala określić model, dla którego tworzymy widok;
 - ``form_class`` – klasa formularza do dodawania obiektu, którą zdefiniowaliśmy w :file:`forms.py`;
 - ``success_url`` – adres URL, pod który zostaniemy przekierowani po poprawnym obsłużeniu formularza;
   aby nie wstawiać adresu literalnie, używamy funkcji ``reverse_lazy()``.
 
 .. note::
 
-	**GET i POST** – to dwa postawowe typy żądań zdefiniowane w protokole `HTTP <https://pl.wikipedia.org/wiki/Hypertext_Transfer_Protocol>`_:
+	**GET i POST** – to dwa podstawowe typy żądań zdefiniowane w protokole `HTTP <https://pl.wikipedia.org/wiki/Hypertext_Transfer_Protocol>`_:
 
 	1. GET – to żądanie klienta (przeglądarki), które dotyczy zazwyczaj pobrania zasobu z serwera bez zmieniania danych, innymi słowy są to operacje odczytu;
-	2. POST – to żądania klinta wysyłające dane na serwer, aby zmienić dane po jego stronie: utworzyć nowe, zaktualizować lub usunąć.
+	2. POST – to żądania klienta wysyłające dane na serwer, aby zmienić dane po jego stronie: utworzyć nowe, zaktualizować lub usunąć.
 
 Zadaniem widoku jest wygenerowanie pustego formularza, kiedy użytkownik wyświetla
 go po raz pierwszy (żądanie typu GET), później sprawdzenie przesłanych
@@ -906,7 +906,7 @@ pól wymaganych zostały podane.
 **Zapisanie danych** ma miejsce w metodzie ``form_valid()`` wywoływanej po
 pozytywnej walidacji. W metodzie uzupełniamy pole ``autor``,
 które wykluczyliśmy z formularza głównego.
-Po zapisaniu przekierwoujemy użytkownika na zdefinowany wcześniej adres.
+Po zapisaniu przekierowujemy użytkownika na zdefiniowany wcześniej adres.
 
 Jeżeli walidacja nie powiedzie się, wywoływana jest metoda ``fomr_invalid()``.
 Nadpisujemy ją po to, aby zwrócić błędy nie tylko formularza głównego,
@@ -959,7 +959,7 @@ z widokiem dodawania formularz, *formset* i szablon.
     :lines: 13
 
 Adres składać się będzie z części ``/edytuj/``, po której podany powinien zostać
-agrument o nazwie ``pk`` będący liczbą. Przykładowy poprawny adres może mieć
+argument o nazwie ``pk`` będący liczbą. Przykładowy poprawny adres może mieć
 więc postać ``/edytuj/2``. Nazwa argumentu ``pk`` nie jest przypadkowa,
 to skrót od słów ang. `primary key` (klucz podstawowy). Jest on automatycznie
 przekazywany do klas widoków opartych na modelach.
