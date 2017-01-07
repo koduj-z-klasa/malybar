@@ -23,14 +23,15 @@ Przygotowanie środowiska
   - ``.pve`` – kropka poprzedzająca nazwę katalogu lub pliku oznacza, że jest on ukryty;
   - Linux rozróżnia małe i duże litery w nazwach katalogów i plików!
   - ścieżki do katalogów i plików w treści podawane są względnie, np. :file:`pizza/urls.py`;
-  - w systemie Windows separatorem katalogów i plików jest znak ``\`` (backslash),
-    projekt lepiej budować w katalogu położonym na partycji innej niż systemowa,
-    wielkość liter w nazwach katalogów i plików nie jest brana pod uwagę;
+
+  W systemie Windows separatorem katalogów i plików jest znak ``\`` (backslash),
+  projekt lepiej budować w katalogu położonym na partycji innej niż systemowa,
+  wielkość liter w nazwach katalogów i plików nie jest brana pod uwagę.
 
 
 Do pracy z Django potrzebny jest przede wszystkim **interpreter Pythona 2.7.x**.
 Jest on domyślnie obecny w systemach Linux. Natomiast w systemach Windows i Mac OS X
-należy wejść na stronę `Donwload Python <https://www.python.org/downloads/>`_,
+należy wejść na stronę `Download Python <https://www.python.org/downloads/>`_,
 pobrać odpowiedni instalator (32- lub 64-bitowy) Pythona (**wersja 2.7.x**!)
 i zainstalować. Opis instalacji znajdziesz na stronie
 `Interpreter Pythona <http://python101.readthedocs.io/pl/latest/env/windows.html#inerpreter-pythona>`_.
@@ -43,12 +44,14 @@ wystarczy wydać w terminalu polecenie:
 
     ~$ sudo apt install python-pip
 
+
 W systemie Windows `pip` jest instalowany razem z interpreterem.
 Korzystając z omawianego narzędzia wydajemy w konsoli tekstowej polecenie:
 
 .. code-block:: bash
 
     ~$ sudo pip install virtualenv
+
 
 Narzędzie `virtualenv` posłuży nam do przygotowania **wyizolowanego środowiska Pythona**,
 zawierającego wybraną wersję Django. W konsoli wydajemy polecenia:
@@ -59,6 +62,7 @@ zawierającego wybraną wersję Django. W konsoli wydajemy polecenia:
 		~/Django$ virtualenv .pve
 		~/Django$ source .pve/bin/activate
 		~/Django$ pip install Django==1.10.4 django-registration
+
 
 Na początku tworzymy katalog do przechowywania projektu i wchodzimy do niego.
 Katalog nie jest niezbędny, jednak ułatwi utrzymanie porządku na dysku.
@@ -80,10 +84,7 @@ Zgodnie z powyższym opisem przygotuj samodzielnie wirtualne środowisko do prac
 .. tip::
 
 	Projektując aplikację będziemy często korzystać z linii poleceń.
-	Nie zamykaj więc okna terminala. Jednak **jeżeli przypadkowo zamkniesz terminal**,
-  uruchom go ponownie, wejdź do katalogu nadrzędnego środowiska wirtualnego
-  (``cd ~/Django``), wydaj polecenie ``source .pve/bin/activate``,
-  a na koniec przejdź do katalogu projektu (``cd malybar``), który zaraz utworzymy.
+	Nie zamykaj więc okna terminala. Jednak **jeżeli przypadkowo zamkniesz terminal**, uruchom go ponownie, wejdź do katalogu nadrzędnego środowiska wirtualnego (``cd ~/Django``), wydaj polecenie ``source .pve/bin/activate``, a na koniec przejdź do katalogu projektu (``cd malybar``), który zaraz utworzymy.
 
 
 Projekt
@@ -94,24 +95,27 @@ Utworzymy teraz projekt i uruchomimy serwer deweloperski. Wydajemy polecenia:
 
 .. code-block:: bash
 
-  ~/Django$ django-admin stratproject malybar
-  ~/Django$ cd malybar
-  ~/Django/malybar$ python manage.py runserver
+    ~/Django$ django-admin stratproject malybar
+    ~/Django$ cd malybar
+    ~/Django/malybar$ python manage.py runserver
+
 
 Pierwsze polecenie tworzy szkielet serwisu, ostatnie uruchomia serwer deweloperski,
 który możemy wywołać wpisując w przeglądarce adres: ``127.0.0.1:8000``.
 Większość zmian w kodzie nie wymaga restartowania serwera. W razie potrzeby
 serwer zatrzymujemy naciskając w terminalu skrót :kbd:`CTRL+C`.
 
+
 .. figure:: img/django_01.jpg
+
 
 **Struktura plików projektu** – w terminalu wydajemy jedno z poleceń:
 
 .. code-block:: bash
 
-  ~/Django/malybar$ tree
-  [lub]
-  ~/Django/malybar$ ls -R
+    ~/Django/malybar$ tree
+    [lub]
+    ~/Django/malybar$ ls -R
 
 
 .. figure:: img/django_02.jpg
@@ -123,12 +127,14 @@ to tylko pojemnik na projekt. Zawiera on:
 	- :file:`manage.py` – skrypt Pythona do zarządzania projektem;
 	- :file:`db.sqlite3` – bazę danych w domyślnym formacie SQLite3.
 
+
 **Katlog projektu** :file:`malybar/malybar` zawiera:
 
 	- :file:`settings.py` – konfiguracja projektu;
 	- :file:`urls.py` – swego rodzaju "menu" naszego projektu, a więc lista wpisów
 	  definiująca adresy URL, które będziemy obsługiwać;
 	- :file:`wsgi.py` – plik konfiguracyjny wykorzystywany przez serwery WWW.
+
 
 Plik :file:`__init__.py` obecny w danym katalogu wskazuje, że dany katalog jest modułem Pythona.
 
@@ -141,10 +147,10 @@ Utworzymy teraz naszą aplikację `pizza` i zbadamy jej strukturę plików:
 
 .. code-block:: bash
 
-	~/Django/malybar$ python manage.py startapp pizza
-	~/Django/malybar$ tree pizza
-	lub:
-	~/Django/malybar$ ls -R pizza
+  	~/Django/malybar$ python manage.py startapp pizza
+  	~/Django/malybar$ tree pizza
+  	lub:
+  	~/Django/malybar$ ls -R pizza
 
 
 .. figure:: img/django_03.jpg
