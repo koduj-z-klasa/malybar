@@ -427,7 +427,7 @@ Modele można zmieniać.
 .. warning::
 
   **Zapamiętaj**: po zmianie modelu należy utworzyć migrację aplikacji (``makemigrations``),
-  a następnie zaktualiz bazę danych projektu (``migrate``)!
+  a następnie zaktualizować bazę danych projektu (``migrate``)!
 
 
 .. tip::
@@ -649,9 +649,9 @@ Na koniec szablon wyświetlany po wylogowaniu, czyli plik
 Po dodaniu szablonów można już przetestować tworzenie konta, logowanie i komunikat po wylogowaniu
 wpisując w przeglądarce po nazwie serwera ``127.0.0.1:8000`` adresy:
 
-	- ``/register`` – tworzenie nowego konta; utwórz konto `ewa` z hasłem `q1w2e3r4`;
-	- ``/login`` – logowanie; zaloguj się na utworzone wcześniej konto `uczen`;
-	- ``/logut`` – potwierdzenie wylogowania;
+	- ``konta/register`` – tworzenie nowego konta; utwórz konto `ewa` z hasłem `q1w2e3r4`;
+	- ``konta/login`` – logowanie; zaloguj się na utworzone wcześniej konto `uczen`;
+	- ``konta/logut`` – potwierdzenie wylogowania;
 
 Spróbuj wstawić do szablonu :file:`pizza/index.html` odnośniki do powyższych adresów.
 Na końcu pliku umieść kod:
