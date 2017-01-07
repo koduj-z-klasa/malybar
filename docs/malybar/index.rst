@@ -429,15 +429,16 @@ Modele można zmieniać.
         class Meta:
             verbose_name_plural = 'pizze'
 
-.. warning::
+.. attention::
 
-  **Zapamiętaj**: po zmianie modelu należy utworzyć migrację aplikacji (``makemigrations``),
-  a następnie zaktualizować bazę danych projektu (``migrate``)!
+  **Zapamiętaj**: po zmianie modelu należy utworzyć migrację aplikacji
+  i zaktualizować bazę danych projektu (polecenia ``makemigrations`` i ``migrate``)!
 
 
 .. tip::
 
   Jeżeli z jakichś powodów kolejnej migracji nie da się zastosować, można:
+
   - usunąć bazę :file:`db.sqlite3`;
   - usunąć katalog :file:`migrations` aplikacji;
   - ponownie utworzyć migrację i zaktualizować bazę projektu.
@@ -446,8 +447,8 @@ Modele można zmieniać.
 Strona administracyjna
 ======================
 
-Zarządzanie treściami czy użytkownikami wymaga panelu administracyjnego, Django dostarcza nam
-go automatycznie.
+Zarządzanie treściami czy użytkownikami wymaga panelu administracyjnego,
+Django dostarcza nam go automatycznie.
 
 **Konto administratora** tworzymy, wydając w terminalu polecenie:
 
