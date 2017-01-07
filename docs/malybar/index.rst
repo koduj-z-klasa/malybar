@@ -83,8 +83,7 @@ Zgodnie z powyższym opisem przygotuj samodzielnie wirtualne środowisko do prac
 	Nie zamykaj więc okna terminala. Jednak **jeżeli przypadkowo zamkniesz terminal**,
   uruchom go ponownie, wejdź do katalogu nadrzędnego środowiska wirtualnego
   (``cd ~/Django``), wydaj polecenie ``source .pve/bin/activate``,
-  a na koniec przejdź do katalogu projektu (``cd malybar``), który
-  zaraz utworzymy.
+  a na koniec przejdź do katalogu projektu (``cd malybar``), który zaraz utworzymy.
 
 
 Projekt
