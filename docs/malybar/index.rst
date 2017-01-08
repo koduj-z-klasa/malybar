@@ -660,7 +660,7 @@ wpisując w przeglądarce po nazwie serwera ``127.0.0.1:8000`` adresy:
 
 	- ``/konta/register`` – tworzenie nowego konta; utwórz konto `ewa` z hasłem `q1w2e3r4`;
 	- ``/konta/login`` – logowanie; zaloguj się na utworzone wcześniej konto `uczen`;
-	- ``/konta/logut`` – potwierdzenie wylogowania;
+	- ``/konta/logout`` – potwierdzenie wylogowania;
 
 Spróbuj wstawić do szablonu :file:`templates/pizza/index.html` odnośniki do powyższych adresów.
 Na końcu pliku umieść kod:
