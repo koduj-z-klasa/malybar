@@ -61,7 +61,7 @@ zawierającego wybraną wersję Django. W konsoli wydajemy polecenia:
 		~$ mkdir Django; cd Django
 		~/Django$ virtualenv .pve
 		~/Django$ source .pve/bin/activate
-		~/Django$ pip install Django==1.10.4 django-registration
+		(.pve) ~/Django$ pip install Django==1.10.4 django-registration
 
 
 Na początku tworzymy katalog do przechowywania projektu i wchodzimy do niego.
@@ -95,9 +95,9 @@ Utworzymy teraz projekt i uruchomimy serwer deweloperski. Wydajemy polecenia:
 
 .. code-block:: bash
 
-    ~/Django$ django-admin stratproject malybar
-    ~/Django$ cd malybar
-    ~/Django/malybar$ python manage.py runserver
+    (.pve) ~/Django$ django-admin stratproject malybar
+    (.pve) ~/Django$ cd malybar
+    (.pve) ~/Django/malybar$ python manage.py runserver
 
 
 Pierwsze polecenie tworzy szkielet serwisu, ostatnie uruchomia serwer deweloperski,
@@ -113,9 +113,9 @@ serwer zatrzymujemy naciskając w terminalu skrót :kbd:`CTRL+C`.
 
 .. code-block:: bash
 
-    ~/Django/malybar$ tree
+    (.pve) ~/Django/malybar$ tree
     [lub]
-    ~/Django/malybar$ ls -R
+    (.pve) ~/Django/malybar$ ls -R
 
 
 .. figure:: img/django_02.jpg
@@ -147,10 +147,10 @@ Utworzymy teraz naszą aplikację `pizza` i zbadamy jej strukturę plików:
 
 .. code-block:: bash
 
-  	~/Django/malybar$ python manage.py startapp pizza
-  	~/Django/malybar$ tree pizza
+  	(.pve) ~/Django/malybar$ python manage.py startapp pizza
+  	(.pve) ~/Django/malybar$ tree pizza
   	lub:
-  	~/Django/malybar$ ls -R pizza
+  	(.pve) ~/Django/malybar$ ls -R pizza
 
 
 .. figure:: img/django_03.jpg
@@ -284,7 +284,7 @@ Oprócz tagów HTML-a, zawiera zmienne oraz tagi sterujące języka szablonów D
 
 	Szablony umieszczamy w katalogu: :file:`pizza/templates/pizza`!
 
-Zawartość szablonu :file:`pizza/templates/index.html`:
+Zawartość szablonu :file:`pizza/templates/pizza/index.html`:
 
 .. raw:: html
 
@@ -389,8 +389,8 @@ Po dokonaniu zmian w bazie tworzymy tzw. *migrację*, w terminalu wydajemy polec
 
 .. code-block:: bash
 
-  ~/Django/malybar$ python manage.py makemigrations pizza
-  ~/Django/malybar$ python manage.py migrate
+  (.pve) ~/Django/malybar$ python manage.py makemigrations pizza
+  (.pve) ~/Django/malybar$ python manage.py migrate
 
 **Migracja** – tworzona przez pierwsze polecenie, to informacje o zmianie w bazy danych zapisywana
 przez Django w języku SQL w katalogu :file:`pizza/migrations`.
@@ -540,7 +540,9 @@ nie musi wybierać autora (czyli siebie) z listy.
 Do rejestrowania klas modyfikujących domyślną klasę ``ModelAdmin`` używamy dekoratora
 w postaci ``@admin.register(models.Pizza)``.
 
+
 .. figure:: img/django_10.jpg
+
 
 Użytkownicy
 ===========
@@ -583,6 +585,7 @@ Teraz możemy zobaczyć, jakie adresy udostępnia aplikacja `django-registration
 wpisując w przeglądarce adres ``127.0.0.1:8000/konta/``:
 
 .. figure:: img/django_11.jpg
+
 
 Jak widać, mamy do dyspozycji m.in następujące adresy:
 
@@ -659,7 +662,7 @@ wpisując w przeglądarce po nazwie serwera ``127.0.0.1:8000`` adresy:
 	- ``/konta/login`` – logowanie; zaloguj się na utworzone wcześniej konto `uczen`;
 	- ``/konta/logut`` – potwierdzenie wylogowania;
 
-Spróbuj wstawić do szablonu :file:`pizza/index.html` odnośniki do powyższych adresów.
+Spróbuj wstawić do szablonu :file:`templates/pizza/index.html` odnośniki do powyższych adresów.
 Na końcu pliku umieść kod:
 
 .. code-block:: html
@@ -693,7 +696,7 @@ ListView
 Praktycznie w każdym serwisie występują strony zawierające zestawienie danych.
 Utworzymy więc widok prezentujący listę pizz.
 
-**Definicja adresu** – w pliku :file:`urls.py` dodajemy importy:
+**Definicja adresu** – w pliku :file:`pizza/urls.py` dodajemy importy:
 
 .. raw:: html
 
@@ -770,6 +773,7 @@ Zwróć uwagę, że **nazwa URL-a poprzedzona została nazwą przestrzeni nazw**
 w parametrze ``namespace`` podczas włączania listy adresów naszej aplikacji do listy projektu.
 
 .. figure:: img/django_13.jpg
+
 
 Create View
 ===========
@@ -933,10 +937,12 @@ Natomiast formularze dla składników renderujemy ręcznie.
 	zapomnieć o polu ``management_form`` i polach ``id`` (identyfikatorów)
 	kolejnych formularzy.
 
+
 Po zdefiniowaniu formularzy, utworzeniu adresu, widoku i szablonu
 możemy dodawać nowe pizze! Nie zapomnij o dodaniu odnośnika na stronie głównej!
 
 .. figure:: img/django_14.jpg
+
 
 UpdateView
 ==========
@@ -990,6 +996,7 @@ Jak widać większość kodu jest identyczna z widokiem dodawania. Są jednak wa
   W szablonie :file:`pizza_list.html` warto uzupełnić odnośnik do edycji.
   Użyj kodu ``{% url 'pizza:edytuj' p.id %}``.
 
+
 Na koniec warto wspomnieć, że zapisywanie edytowanych danych dochodzi do skutku,
 o ile dane zostały zmienione.
 
@@ -1038,6 +1045,7 @@ odpowiadać obiektowi pizzy przypisanego do właściwości ``self.object`` widok
 	w zmiennej ``pk`` automatycznie pobierają odpowiedni obiekt z bazy przy
 	użyciu metody ``get_object()``.
 
+
 **Szablon widoku** nazywamy wg domyślnego schematu `model_confirm_delete.html`,
 czyli tworzymy plik :file:`pizza/templates/pizza/pizza_confirm_delete.html`
 z następującą zawartością:
@@ -1069,7 +1077,7 @@ HTML, CSS i JavaScript przeznaczone do projektowania mobilnych i responsywnych s
 
 **Szablon bazowy** – to szkielet stron w naszym serwisie; zawiera powtarzające się elementy,
 np. menu, jak również bloki, które można wypełniać dostosowaną treścią w szablonach dziedziczących.
-Tworzymy plik :file:`pizza/templates/base.html`:
+Tworzymy plik :file:`pizza/templates/pizza/base.html`:
 
 .. raw:: html
 
@@ -1102,7 +1110,7 @@ Rozszerzanie szablonu
 
 Szablony poszczególnych widoków rozszerzają szablon bazowy dziedzicząc elementy
 powtarzalne i wypełniając bloki własną zawartością. Dotychczasową zawartość
-szablonu :file:`index.html` zastępujemy kodem:
+szablonu :file:`pizza/index.html` zastępujemy kodem:
 
 .. raw:: html
 
@@ -1118,7 +1126,7 @@ Tag ``{% extendes "pizza/base.html" %}`` informuje, że korzystamy z podanego sz
 podstawowego. Sekwencje tagów ``{% block nazwa_bloku %} ... {% endblock %}``
 wypełniają zdefiniowane w szablonie bazowym bloki odpowiednią zawartością.
 
-Jeszcze jeden przykład. Szablon :file:`login.html` będzie wyglądał następująco:
+Jeszcze jeden przykład. Szablon :file:`registration/login.html` będzie wyglądał następująco:
 
 .. raw:: html
 
