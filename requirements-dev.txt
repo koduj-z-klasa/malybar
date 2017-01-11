@@ -1,0 +1,22 @@
+# Potrzebne testom CI na Travis
+coverage
+coveralls
+
+# Przydaje się do testowania na różnych wersjach Pythona
+tox
+
+# Narzędzia ułatwiające pisanie testów jednostkowych
+mock
+faker
+factory-boy
+
+# Narzędzie do wersjonowania wydań
+bumpversion
+
+# Analiza jakości kodów źródłowych
+pylint
+
+# Inne
+invoke
+pathlib
+

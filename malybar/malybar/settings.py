@@ -23,8 +23,19 @@ SECRET_KEY = 'de*_-ak)x&rcg35m@kvr%f^!@k8b06p97@m2t$!ysu71tom#kv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'vagrant',
+    '.example.com',
+    '.herokuapp.com',
+]
 
+if 'ALLOWED_HOSTS' in os.environ:
+    for host in os.environ['ALLOWED_HOSTS'].split(" "):
+        host = host.strip()
+        if host:
+            ALLOWED_HOSTS.append(host)
 
 # Application definition
 
@@ -83,11 +94,10 @@ if "DATABASE_URL" in os.environ:
     DATABASES = {
         "default": dj_database_url.config()
     }
-    # Make sure we use GIS enabled engine
-    DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+    DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
     DATABASES['default']['TEST'] = {'NAME': os.environ.get("DATABASE_TEST_NAME", None)}
     DATABASES['default']['OPTIONS'] = {
-        'options': '-c search_path=gis,public,pg_catalog'
+        'options': '-c search_path=public,pg_catalog'
     }
 else:
     # Use local sqlite3 database
@@ -136,6 +146,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # django-registration
 # REGISTRATION_OPEN = True  # czy użytkownik może utworzyć konto

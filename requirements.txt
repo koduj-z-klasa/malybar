@@ -1,4 +1,12 @@
-Sphinx==1.4.5
 Django==1.10.4
 django-registration
+
+# Potrzebne do budowania dokumentacji
+Sphinx==1.4.5
+
+# Wymagane przez Heroku
+# Potrzebne dla obsługi PostgreSQL, plików statycznych oraz serwera HTTP
+psycopg2
 dj-database-url
+whitenoise
+gunicorn

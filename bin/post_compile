@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# File path should be ./bin/post_compile
+# https://gist.github.com/kylefox/7044491259b6b2586ca1
+
+echo "=> Performing database migrations..."
+python malybar/manage.py migrate
