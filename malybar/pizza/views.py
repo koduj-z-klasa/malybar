@@ -9,6 +9,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
+from django.views.generic import DetailView
 
 
 def index(request):
@@ -104,6 +105,17 @@ class PizzaDelete(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super(PizzaDelete, self).get_context_data(**kwargs)
+        skladniki = models.Skladnik.objects.filter(pizza=self.object)
+        context['skladniki'] = skladniki
+        return context
+
+
+@method_decorator(login_required, 'dispatch')
+class PizzaDetailView(DetailView):
+    model = models.Pizza
+
+    def get_context_data(self, **kwargs):
+        context = super(PizzaDetailView, self).get_context_data(**kwargs)
         skladniki = models.Skladnik.objects.filter(pizza=self.object)
         context['skladniki'] = skladniki
         return context

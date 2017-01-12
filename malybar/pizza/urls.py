@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^dodaj/$', views.PizzaCreate.as_view(), name='dodaj'),
     url(r'^edytuj/(?P<pk>\d+)/', views.PizzaUpdate.as_view(), name='edytuj'),
     url(r'^usun/(?P<pk>\d+)/', views.PizzaDelete.as_view(), name='usun'),
+    url(r'^info/(?P<pk>\d+)/', views.PizzaDetailView.as_view(), name='info'),
 ]

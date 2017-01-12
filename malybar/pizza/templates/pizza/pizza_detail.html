@@ -1,0 +1,21 @@
+{% extends "pizza/base.html" %}
+
+{% block tytul_h1 %}
+    Pizza info
+{% endblock %}
+
+{% block tresc %}
+<h2>{{ object.nazwa }}</h2>
+<table class="table">
+    <tr><td>Opis:</td><td>{{ object.opis }}</td></tr>
+    <tr><td>Rozmiar:</td><td>{{ object.rozmiar }}</td></tr>
+    <tr><td>Cena:</td><td>{{ object.cena }}</td></tr>
+    <tr><td>Dodano:</td><td>{{ object.data }}</td></tr>
+    <tr><td>Autor:</td><td>{{ object.autor }}</td></tr>
+</table>
+<h3>Składniki:</h3>
+<ol>
+{% for skl in skladniki %}
+    <li>{{ skl.nazwa }} ({{ skl.czy_jarski }})</li>
+{% endfor %}
+{% endblock %}

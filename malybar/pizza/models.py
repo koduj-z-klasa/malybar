@@ -39,8 +39,10 @@ class Skladnik(models.Model):
         help_text=u"Zaznacz, jeżeli składnik jest odpowiedni dla"
         u" wegetarian")
 
-    def is_jarski(self):
-        return self.jarski
+    def czy_jarski(self):
+        if self.jarski:
+            return 'jarski'
+        return 'niejarski'
 
     def __unicode__(self):
         return u'%s' % (self.nazwa)
