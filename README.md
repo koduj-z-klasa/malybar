@@ -38,7 +38,7 @@ Sprawdzenia poprawnego działania aplikacji dokonujemy uruchamiając testy:
 
     ~/malybar/malybar$ python manage.py test
     
-Dodatkowo testy można wykonać na wielu wersja Python przy pomocy narzędzia [TOX](https://tox.readthedocs.io/en/latest/), 
+Dodatkowo testy można wykonać na wielu wersjach Pythona przy pomocy narzędzia [TOX](https://tox.readthedocs.io/en/latest/), 
 konfiguracja tego narzędzia w pliku [tox.ini](tox.ini) wykonuje także testy pokrycia kodu testami.
 
     ~/malybar$ tox
