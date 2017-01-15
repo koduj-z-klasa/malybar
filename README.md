@@ -45,8 +45,8 @@ konfiguracja tego narzędzia w pliku [tox.ini](tox.ini) wykonuje także testy po
 
 Ponadto to repozytorium w GitHub jest spięte z testami wykonywanymi w chmurze. 
 
-![](https://img.shields.io/travis/wooyek/malybar.svg)
-![](https://img.shields.io/coveralls/wooyek/malybar.svg)
+![](https://img.shields.io/travis/xinulsw/malybar.svg)
+![](https://img.shields.io/coveralls/xinulsw/malybar.svg)
 
 Każda kopia repozytorium na GitHubie może uruchomić testy na własnym bezpłatnym koncie by objąć testami własne modyfikacje.
 
