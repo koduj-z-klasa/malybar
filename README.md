@@ -62,3 +62,5 @@ Każdy może utworzyć jedną bezpłatną aplikację na Heroku, po ściągnięci
     malybar$ heroku open
  
 Po więcej informacji zapraszamy [do dokumentacji](https://devcenter.heroku.com/articles/getting-started-with-python#introduction)
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/xinulsw/malybar/)

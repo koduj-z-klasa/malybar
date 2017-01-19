@@ -1,0 +1,17 @@
+{
+  "name": "malybar",
+  "description": "Aplikacja przykładowa na zajęcia Koduj z Klasą",
+  "keywords": [
+    "Python",
+    "Django"
+  ],
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ],
+  "env": {
+    "SECRET_KEY": "REDACTED"
+  },
+  "scripts": {
+    "postdeploy": "python malybar/manage.py migrate"
+  }
+}
