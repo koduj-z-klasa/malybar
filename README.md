@@ -60,7 +60,22 @@ Każdy może utworzyć jedną bezpłatną aplikację na Heroku, po ściągnięci
     malybar$ heroku create
     malybar$ git push heroku master
     malybar$ heroku open
- 
-Po więcej informacji zapraszamy [do dokumentacji](https://devcenter.heroku.com/articles/getting-started-with-python#introduction)
+
+Jeśli chcemy szybko uruchomić nowy serwer to wystarczy użyć przysiku poniżej:
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/xinulsw/malybar/)
+
+A potem łączymy nowo utworzoną aplikację z naszym lokalnym repozytorium GIT:
+
+    malybar$ heroku login
+    malybar$ heroku git:remote -a <NAZWA NOTO UTWORZONEJ APLIKACJI NA HEROKU>
+    
+Możemy ją zmodyfikować, a potem wykonać wdrożenie zmian na heroku:
+
+    malybar$ git add --all
+    malybar$ git commit -am "moje super modyfikacje"
+    malybar$ git push heroku master
+    malybar$ heroku open
+
+    
+Po więcej informacji zapraszamy [do dokumentacji](https://devcenter.heroku.com/articles/getting-started-with-python#introduction)
