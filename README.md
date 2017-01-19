@@ -61,7 +61,7 @@ Każdy może utworzyć jedną bezpłatną aplikację na Heroku, po ściągnięci
     malybar$ git push heroku master
     malybar$ heroku open
 
-Jeśli chcemy szybko uruchomić nowy serwer to wystarczy użyć przysiku poniżej:
+Jeśli chcemy szybko uruchomić nowy serwer to wystarczy użyć przycisku poniżej:
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/xinulsw/malybar/)
 
