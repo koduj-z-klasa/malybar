@@ -68,7 +68,7 @@ Jeśli chcemy szybko uruchomić nowy serwer to wystarczy użyć przycisku poniż
 A potem łączymy nowo utworzoną aplikację z naszym lokalnym repozytorium GIT:
 
     malybar$ heroku login
-    malybar$ heroku git:remote -a <NAZWA NOTO UTWORZONEJ APLIKACJI NA HEROKU>
+    malybar$ heroku git:remote -a <NAZWA NOWO UTWORZONEJ APLIKACJI NA HEROKU>
     
 Możemy ją zmodyfikować, a potem wykonać wdrożenie zmian na heroku:
 
