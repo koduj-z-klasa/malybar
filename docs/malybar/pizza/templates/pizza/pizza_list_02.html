@@ -8,9 +8,10 @@
   <td>{{ p.nazwa }}</td>
   <td>{{ p.autor.username }} ({{ p.data }})</td>
   <td>
+    <a href="{% url 'pizza:info' p.id %}">Szczegóły</a>
     {% if p.autor.username == user.username %}
-      <a href="#">Edytuj</a> &bull;
-      <a href="#">Usuń</a>
+      &bull; <a href="{% url 'pizza:edytuj' p.id %}">Edytuj</a> &bull;
+      <a href="{% url 'pizza:usun' p.id %}">Usuń</a>
     {% endif %}
   </td>
 </tr>

@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.conf.urls import include
 
 urlpatterns = [
-    url(r'^', include('pizza.urls', namespace='pizza')),
-    url(r'^pizza/', include('pizza.urls', namespace='pizza')),
+    url(r'^', include('pizza.urls')),
+    url(r'^pizza/', include('pizza.urls')),
     url(r'^admin/', admin.site.urls),
 ]

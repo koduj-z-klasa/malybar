@@ -204,7 +204,7 @@ Po zapisaniu zmian, uruchomieniu serwera i otwarciu adresu 127.0.0.1:8000 w prze
 Widok domyślny
 ==============
 
-**Mapowanie adresów URL** aplikacji tworzymy w nowym pliku :file:`pizza/urls.py`,
+**Mapowanie adresów URL aplikacji** tworzymy w nowym pliku :file:`pizza/urls.py`,
 który wypełniamy następującym kodem:
 
 .. raw:: html
@@ -216,8 +216,11 @@ który wypełniamy następującym kodem:
     :linenos:
     :lineno-start: 1
     :lines: 1-
-    :emphasize-lines: 3, 6
+    :emphasize-lines: 3, 5, 7
 
+
+Zmienna ``app-name`` – pozwala określić przestrzeń nazw, w której dostępne będą adresy URL
+obsługujące aplikację.
 
 Lista ``urlpatterns`` zawiera powiązania między adresami URL a obsługującymi je widokami
 zapisanymi w pliku :file:`views.py`, który importujemy w drugiej linii.
@@ -226,8 +229,8 @@ Funkcja ``url()`` przyporządkowuje adresowi URL widok, który go obsługuje. Pi
 regularne, do którego Django próbuje dopasować adres otrzymany w żądaniu od klienta. Drugi to nazwa widoku.
 Trzeci to unikalna nazwa, dzięki której można odwoływać się w aplikacji do zdefiniowanego adresu.
 
-**Konfiguracja adresów URL** projektu zawarta jest w pliku :file:`malybar/urls.py`. Każda aplikacja definiuje
-zazwyczaj swoją listę obsługiwanych adresów, którą należy dołączyć:
+**Konfiguracja adresów URL projektu** zawarta jest w pliku :file:`malybar/urls.py`.
+W tym miejscu dołączamy listy adresów URL zdefiniowane przez poszczególne aplikacje.
 
 .. raw:: html
 
@@ -240,10 +243,9 @@ zazwyczaj swoją listę obsługiwanych adresów, którą należy dołączyć:
     :lines: 16-24
     :emphasize-lines: 3, 6-7
 
-Funkcja ``include()`` jako pierwszy parametr przyjmuje ścieżkę dostępu do konfiguracji adresów danej
+Funkcja ``include()`` jako parametr przyjmuje ścieżkę dostępu do konfiguracji adresów danej
 aplikacji. W praktyce jest to nazwa katalogu, w którym znajduje się aplikacja, operator ``.`` (kropka)
 oraz domyślna nazwa pliku konfiguracyjnego :file:`urls.py` bez rozszerzenia.
-Wartość parametru ``namespace`` definiuje przestrzeń nazw, w której dostępne będą adresy używane w aplikacji.
 
 **Widok** definiuje jakiś typ strony WWW, za pomocą którego użytkownik wykonuje w aplikacji
 jakieś operacje, np. wyświetla zestawienie danych. Technicznie widok zazwyczaj składa się
@@ -323,10 +325,10 @@ nie, uruchom go. W przeglądarce odśwież lub wpisz adres domyślny serwera tes
 
 .. tip::
 
-  **Programowanie to sztuka wykrywania i poprawiania błędów!**
-  W przypadku błędów Django wyświetla obszerne informacje, które na pierwszy rzut oka
-  są bardzo skomplikowane. Nie musisz studiować całości, żeby zrozumieć, co poszło nie tak.
-  Skup się na początku komunikatu!
+    **Programowanie to sztuka wykrywania i poprawiania błędów!**
+    W przypadku błędów Django wyświetla obszerne informacje, które na pierwszy rzut oka
+    są bardzo skomplikowane. Nie musisz studiować całości, żeby zrozumieć, co poszło nie tak.
+    Skup się na początku komunikatu!
 
 
 .. figure:: img/django_05.jpg
@@ -376,21 +378,27 @@ metody tworzącej pole wymaganego typu. Za pomocą nazwanych argumentów określ
 	- ``max_digits``, ``decimal_places`` – określenie maksymalnej ilości cyfr i ilości miejsc po przecinku liczby rzeczywistej;
 	- ``auto_now_add = True`` – data (i czas) wstawione zostaną automatycznie;
 	- ``default`` – określenie wartości domyślnej pola;
-	- ``choices`` – wskazuje listę wartości dopuszczalnych dla danego pola.
+	- ``choices`` – wskazuje listę wartości dopuszczalnych dla danego pola;
+    - ``on_delete`` – określa co ma się stać w przypadku usunięcia obiektu nadrzędnego (pizzy), na który wskazuje klucz obcy, opcja ``models.CASCADE`` wymusza usnięcie obiektów zależnych (skaładników);
+    - ``realted_name`` – nazwa używana w relacji zwrotnej, kiedy z obiektu nadrzędnego (pizzy) chcemy odwołać się do obiektów zależnych (składników), np. ``pizza.skladniki``.
+
 
 W bazie chcemy przechowywać dane o pizzach. Każda z nich składać się może z wielu składników.
 Tak więc między modelami `Pizza` i `Skladnik` istnieje relacja jeden-do-wielu.
 
 Po dokonaniu zmian w bazie tworzymy tzw. *migrację*, w terminalu wydajemy polecenia:
 
+
 .. raw:: html
 
     <div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
 
+
 .. code-block:: bash
 
-  (.pve) ~/Django/malybar$ python manage.py makemigrations pizza
-  (.pve) ~/Django/malybar$ python manage.py migrate
+    (.pve) ~/Django/malybar$ python manage.py makemigrations pizza
+    (.pve) ~/Django/malybar$ python manage.py migrate
+
 
 **Migracja** – tworzona przez pierwsze polecenie, to informacje o zmianie w bazy danych zapisywana
 przez Django w języku SQL w katalogu :file:`pizza/migrations`.
@@ -454,7 +462,7 @@ Django dostarcza nam go automatycznie.
 
 .. code-block:: bash
 
-  ~/Django/malybar$ python manage.py createsuperuser
+    ~/Django/malybar$ python manage.py createsuperuser
 
 Django zapyta o nazwę, e-mail i hasło. Podajemy: `admin`, `""` (pomijamy), `q1w2e3r4`.
 
@@ -718,8 +726,8 @@ Dodajemy kod:
 .. highlight:: python
 .. literalinclude:: pizza/urls_02.py
     :linenos:
-    :lineno-start: 7
-    :lines: 7-11
+    :lineno-start: 8
+    :lines: 8-12
     :emphasize-lines: 3-4
 
 **Widoki generyczne** (ang. *generic views*), udostępniane przez Django, służą przygotowywaniu typowych
@@ -837,10 +845,10 @@ i składników w obrębie jednej strony, podobnie jak w panelu administracyjnym.
 	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
 
 .. highlight:: python
-.. literalinclude:: pizza/urls_0345.py
+.. literalinclude:: pizza/urls_03456.py
     :linenos:
-    :lineno-start: 12
-    :lines: 12
+    :lineno-start: 13
+    :lines: 13
 
 
 **CreateView** – to kolejny widok generyczny, który posłuży zgodnie z nazwą
@@ -959,10 +967,10 @@ z widokiem dodawania formularz, *formset* i szablon.
 	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
 
 .. highlight:: python
-.. literalinclude:: pizza/urls_0345.py
+.. literalinclude:: pizza/urls_03456.py
     :linenos:
-    :lineno-start: 13
-    :lines: 13
+    :lineno-start: 14
+    :lines: 14
 
 Adres składać się będzie z części ``/edytuj/``, po której podany powinien zostać
 argument o nazwie ``pk`` będący liczbą. Przykładowy poprawny adres może mieć
@@ -1016,10 +1024,10 @@ obiektu, który chcemy usunąć. W pliku :file:`pizza/urls.py` dopisujemy:
 	<div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
 
 .. highlight:: python
-.. literalinclude:: pizza/urls_0345.py
+.. literalinclude:: pizza/urls_03456.py
     :linenos:
-    :lineno-start: 14
-    :lines: 14
+    :lineno-start: 15
+    :lines: 15
 
 **Sam widok** umieszczamy na końcu pliku :file:`pizza/views.py`:
 
@@ -1035,16 +1043,10 @@ obiektu, który chcemy usunąć. W pliku :file:`pizza/urls.py` dopisujemy:
 
 **Uzupełniamy kontekst**, ponieważ chcemy w szablonie potwierdzenia wyświetlić
 również listę składników pizzy. W metodzie ``get_context_data()``
-pobieramy listę składników w zapytaniu ``skladniki = models.Skladnik.objects.filter(pizza=self.object)``. Warto zwrócić uwagę na kryterium filtrowania rekordów.
+pobieramy listę składników w zapytaniu ``skladniki = models.Skladnik.objects.filter(pizza=self.object)``.
+Warto zwrócić uwagę na kryterium filtrowania rekordów.
 Używamy klucza obcego (pola ``pizza`` z modelu `Skladnik`), który musi
-odpowiadać obiektowi pizzy przypisanego do właściwości ``self.object`` widoku.
-
-.. note::
-
-	Widoki `UpdateView` i `DeleteView` na podstawie przekazanego identyfikatora
-	w zmiennej ``pk`` automatycznie pobierają odpowiedni obiekt z bazy przy
-	użyciu metody ``get_object()``.
-
+odpowiadać obiektowi pizzy przypisanemu do właściwości ``self.object`` widoku.
 
 **Szablon widoku** nazywamy wg domyślnego schematu `model_confirm_delete.html`,
 czyli tworzymy plik :file:`pizza/templates/pizza/pizza_confirm_delete.html`
@@ -1067,6 +1069,70 @@ w pętli wyświetlamy przekazane przez kontekst składniki.
 .. figure:: img/django_16.jpg
 
 
+DetailView
+==========
+
+**DetailView** – widok szczegółowy służy prezentowaniu wszystkich informacji dotyczących
+jakiegoś obiektu na jednej stronie.
+
+**Import** – importujemy klasę dopisując w pliku :file:`pizza/views.py`:
+``from django.views.generic import DetailView``.
+
+**Adres widoku** jest zbudowany na takiej samej zasadzie, jak w przypadku edycji i usuwania danych,
+czyli zawiera identyfikator obiektu. W pliku :file:`pizza/urls.py` dopisujemy:
+
+.. raw:: html
+
+  <div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: python
+.. literalinclude:: pizza/urls_03456.py
+    :linenos:
+    :lineno-start: 16
+    :lines: 16
+
+**Widok** umieszczamy na końcu pliku :file:`pizza/views.py`:
+
+.. raw:: html
+
+  <div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: python
+.. literalinclude:: pizza/views_05.py
+    :linenos:
+    :lineno-start: 111
+    :lines: 111-
+
+**W kontekście widoku** dodajemy, podobnie jak w przypadku widoku usuwania,
+listę składników danej pizzy.
+
+.. note::
+
+  Widoki `UpdateView`, `DeleteView` oraz `DetailView` na podstawie przekazanego
+  w zmiennej ``pk`` identyfikatora automatycznie pobierają odpowiedni obiekt z bazy
+  przy użyciu metody ``get_object()``.
+
+**Szablon widoku** nazywamy wg domyślnego schematu `model_detail.html`,
+czyli tworzymy plik :file:`pizza/templates/pizza/pizza_detail.html`
+z następującą zawartością:
+
+.. raw:: html
+
+  <div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
+.. highlight:: html
+.. literalinclude:: pizza/templates/pizza/pizza_detail_01.html
+    :linenos:
+    :lineno-start: 1
+    :lines: 1-
+
+Ćwiczenie
+---------
+
+Dodaj do szablonu listy obiektów (pizz) link o nazwie np. "Szczegóły",
+który wyświetli dodatkowe inforamcje o danej pizzy.
+
+
 Szablon bazowy
 ==============
 
@@ -1082,6 +1148,7 @@ Tworzymy plik :file:`pizza/templates/pizza/base.html`:
 .. raw:: html
 
   <div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+
 
 .. highlight:: html
 .. literalinclude:: pizza/templates/pizza/base.html
