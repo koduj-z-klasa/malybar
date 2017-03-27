@@ -355,49 +355,46 @@ W pliku :file:`pizza/models.py` definiujemy klasy opisujące źródła danych na
     :lines: 1-
 
 Nazwa każdego modelu (klasy) powinna zaczynać się dużą literą. Każdy model jest potomkiem
-klasy Models (dziedziczenie). Definicja każdej zmiennej (właściwości) zawiera wywołanie
+klasy *Models* (dziedziczenie). Definicja każdej zmiennej (właściwości) zawiera wywołanie
 metody tworzącej pole wymaganego typu. Za pomocą nazwanych argumentów określamy dodatkowe cechy pól.
 
-.. note::
 
-	Najczęstsze typy pól:
+.. note:: Najczęstsze typy pól:
 
-	- ``CharField`` – pole znakowe, przechowuje niezbyt długie napisy, np. nazwy;
-	- ``TextField`` – pole tekstowe, dla długich tekstów, np. opisów;
-	- ``DecimalField`` – pole dziesiętne, nadaje się do przechowywania liczb rzeczywistych, np. cen;
-	- ``Date(Time)Field`` – pole daty (i czasu);
-	- ``BooleanField`` – pole logiczne, przechowuje wartość ``True`` lub ``False``;
-	- ``ForeignKey`` – pole klucza obcego, czyli relacji; wymaga nazwy powiązanego modelu jako pierwszego argumentu.
+	* ``CharField`` – pole znakowe, przechowuje niezbyt długie napisy, np. nazwy;
+	* ``TextField`` – pole tekstowe, dla długich tekstów, np. opisów;
+	* ``DecimalField`` – pole dziesiętne, nadaje się do przechowywania liczb rzeczywistych, np. cen;
+	* ``Date(Time)Field`` – pole daty (i czasu);
+	* ``BooleanField`` – pole logiczne, przechowuje wartość ``True`` lub ``False``;
+	* ``ForeignKey`` – pole klucza obcego, czyli relacji; wymaga nazwy powiązanego modelu jako pierwszego argumentu.
 
-	Właściwości pól:
+  Właściwości pól:
 
-	- ``verbose_name`` lub napis podany jako pierwszy argument – przyjazna nazwa pola;
-	- ``max_length`` – maksymalna długość pola znakowego;
-	- ``blank = True`` – pole może zawierać ciąg pusty;
-	- ``help_text`` – tekst podpowiedzi;
-	- ``max_digits``, ``decimal_places`` – określenie maksymalnej ilości cyfr i ilości miejsc po przecinku liczby rzeczywistej;
-	- ``auto_now_add = True`` – data (i czas) wstawione zostaną automatycznie;
-	- ``default`` – określenie wartości domyślnej pola;
-	- ``choices`` – wskazuje listę wartości dopuszczalnych dla danego pola;
-    - ``on_delete`` – określa co ma się stać w przypadku usunięcia obiektu nadrzędnego (pizzy), na który wskazuje klucz obcy, opcja ``models.CASCADE`` wymusza usnięcie obiektów zależnych (skaładników);
-    - ``realted_name`` – nazwa używana w relacji zwrotnej, kiedy z obiektu nadrzędnego (pizzy) chcemy odwołać się do obiektów zależnych (składników), np. ``pizza.skladniki``.
-
+    * ``verbose_name`` lub napis podany jako pierwszy argument – przyjazna nazwa pola;
+    * ``max_length`` – maksymalna długość pola znakowego;
+    * ``blank = True`` – pole może zawierać ciąg pusty;
+    * ``help_text`` – tekst podpowiedzi;
+    * ``max_digits``, ``decimal_places`` – określenie maksymalnej ilości cyfr i ilości miejsc po przecinku liczby rzeczywistej;
+    * ``auto_now_add = True`` – data (i czas) wstawione zostaną automatycznie;
+    * ``default`` – określenie wartości domyślnej pola;
+    * ``choices`` – wskazuje listę wartości dopuszczalnych dla danego pola;
+    * ``on_delete`` – określa, co ma się stać w przypadku usunięcia obiektu nadrzędnego (pizzy), na który wskazuje klucz obcy, opcja ``models.CASCADE`` wymusza usunięcie obiektów zależnych (składników);
+    * ``realted_name`` – nazwa używana w relacji zwrotnej, kiedy z obiektu nadrzędnego (pizzy) chcemy odwołać się do obiektów zależnych (składników), np. ``pizza.skladniki``.
 
 W bazie chcemy przechowywać dane o pizzach. Każda z nich składać się może z wielu składników.
 Tak więc między modelami `Pizza` i `Skladnik` istnieje relacja jeden-do-wielu.
 
 Po dokonaniu zmian w bazie tworzymy tzw. *migrację*, w terminalu wydajemy polecenia:
 
-
 .. raw:: html
 
-    <div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
+  <div class="code_no">Kod nr <script>var code_no = code_no || 1; document.write(code_no++);</script></div>
 
 
 .. code-block:: bash
 
-    (.pve) ~/Django/malybar$ python manage.py makemigrations pizza
-    (.pve) ~/Django/malybar$ python manage.py migrate
+  (.pve) ~/Django/malybar$ python manage.py makemigrations pizza
+  (.pve) ~/Django/malybar$ python manage.py migrate
 
 
 **Migracja** – tworzona przez pierwsze polecenie, to informacje o zmianie w bazy danych zapisywana
