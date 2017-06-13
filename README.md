@@ -15,7 +15,7 @@ http://django-maly-bar.readthedocs.io/
 W katalogu projektu `malybar` należy utworzyć środowisko wirtualne `.pve`
 i zainstalować w nim wymagane biblioteki
 
-    ~$ git clone https://github.com/xinulsw/malybar.git
+    ~$ git clone https://github.com/koduj-z-klasa/malybar.git
     ~$ cd malybar
     malybar$ virtualenv .pve
     malybar$ source .pve/bin/activate
