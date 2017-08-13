@@ -24,20 +24,10 @@ Przygotowanie środowiska
   - Linux rozróżnia małe i duże litery w nazwach katalogów i plików!
   - ścieżki do katalogów i plików w treści podawane są względnie, np. :file:`pizza/urls.py`;
 
-  W systemie Windows separatorem katalogów i plików jest znak ``\`` (backslash),
-  projekt lepiej budować w katalogu położonym na partycji innej niż systemowa,
-  wielkość liter w nazwach katalogów i plików nie jest brana pod uwagę.
-
 
 Do pracy z Django potrzebny jest przede wszystkim **interpreter Pythona 2.7.x**.
-Jest on domyślnie obecny w systemach Linux. Natomiast w systemach Windows i Mac OS X
-należy wejść na stronę `Download Python <https://www.python.org/downloads/>`_,
-pobrać odpowiedni instalator (32- lub 64-bitowy) Pythona (**wersja 2.7.x**!)
-i zainstalować. Opis instalacji znajdziesz na stronie
-`Interpreter Pythona <http://python101.readthedocs.io/pl/latest/env/windows.html#inerpreter-pythona>`_.
-
-Poza Pythonem potrzebny jest również instalator pakietów Pythona `pip`.
-W systemach Linux wywodzących się z Debiana (Ubuntu, Linux Mint)
+Jest on domyślnie obecny w systemach Linux. Poza Pythonem potrzebny jest również
+instalator pakietów Pythona `pip`. W systemach Linux opartych na Debianie (Ubuntu, Linux Mint)
 wystarczy wydać w terminalu polecenie:
 
 .. code-block:: bash
@@ -45,16 +35,15 @@ wystarczy wydać w terminalu polecenie:
     ~$ sudo apt install python-pip
 
 
-W systemie Windows `pip` jest instalowany razem z interpreterem.
-Korzystając z omawianego narzędzia wydajemy w konsoli tekstowej polecenie:
+Następnie instalujemy narzędzie `virtualenv`:
 
 .. code-block:: bash
 
     ~$ sudo pip install virtualenv
 
 
-Narzędzie `virtualenv` posłuży nam do przygotowania **wyizolowanego środowiska Pythona**,
-zawierającego wybraną wersję Django. W konsoli wydajemy polecenia:
+Posłuży nam ono do przygotowania **wyizolowanego środowiska Pythona**,
+zawierającego wybraną wersję Django. Wydajemy polecenia:
 
 .. code-block:: bash
 
@@ -74,6 +63,17 @@ Opuszczenie środowiska umożliwia komenda ``deactivate``.
 Polecenie ``pip install ...`` instaluje wskazaną wersję Django oraz dodatkową aplikację
 ułatwiającą zarządzanie użytkownikami. Tak zainstalowane moduły będą dostępne
 tylko w środowisku wirtualnym.
+
+.. tip::
+
+  W systemie Windows:
+
+  * separatorem katalogów i plików jest znak ``\`` (backslash),
+  * projekt lepiej budować w katalogu położonym na partycji innej niż systemowa,
+  * wielkość liter w nazwach katalogów i plików nie jest brana pod uwagę,
+  * instalacja Pythona: `Interpreter Pythona <http://python101.readthedocs.io/pl/latest/env/index.html#inerpreter-pythona>`_,
+  * instalacja virtualenv: `pip <http://python101.readthedocs.io/pl/latest/env/index.html#id11>`_,
+  * aktywacja środowiska wirtualnego: ``.pve\Scripts\activate.bat``
 
 
 Ćwiczenie
