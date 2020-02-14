@@ -216,7 +216,7 @@ który wypełniamy następującym kodem:
     :linenos:
     :lineno-start: 1
     :lines: 1-
-    :emphasize-lines: 3, 5, 7
+    :emphasize-lines: 6
 
 
 Zmienna ``app-name`` – pozwala określić przestrzeń nazw, w której dostępne będą adresy URL
@@ -225,7 +225,7 @@ obsługujące aplikację.
 Lista ``urlpatterns`` zawiera powiązania między adresami URL a obsługującymi je widokami
 zapisanymi w pliku :file:`views.py`, który importujemy w drugiej linii.
 
-Funkcja ``url()`` przyporządkowuje adresowi URL widok, który go obsługuje. Pierwszy parametr to wyrażenie
+Funkcja ``path()`` przyporządkowuje adresowi URL widok, który go obsługuje. Pierwszy parametr to wyrażenie
 regularne, do którego Django próbuje dopasować adres otrzymany w żądaniu od klienta. Drugi to nazwa widoku.
 Trzeci to unikalna nazwa, dzięki której można odwoływać się w aplikacji do zdefiniowanego adresu.
 
@@ -239,9 +239,9 @@ W tym miejscu dołączamy listy adresów URL zdefiniowane przez poszczególne ap
 .. highlight:: python
 .. literalinclude:: malybar/urls_01.py
     :linenos:
-    :lineno-start: 16
-    :lines: 16-24
-    :emphasize-lines: 3, 6-7
+    :lineno-start: 1
+    :lines: 1-
+    :emphasize-lines: 2, 5
 
 Funkcja ``include()`` jako parametr przyjmuje ścieżkę dostępu do konfiguracji adresów danej
 aplikacji. W praktyce jest to nazwa katalogu, w którym znajduje się aplikacja, operator ``.`` (kropka)
